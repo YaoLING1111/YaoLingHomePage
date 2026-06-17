@@ -1,7 +1,7 @@
 ---
 title: State Estimation Paradigms for UAV Navigation
 date: 2026-01-29 00:00:00
-description: KTH EL2320 Applied Estimation 项目：在自动化 Unity 仿真中比较 EKF、Particle Filter/MCL 与 Hybrid EKF-PF 的定位精度、鲁棒性和 kidnapped recovery。
+description: 在自动化 Unity 仿真中比较 EKF、Particle Filter/MCL 与 Hybrid EKF-PF 的定位精度、鲁棒性和 kidnapped recovery。
 cover: /img/projects/provided/unity-estimation-cover.png
 categories:
   - Research
@@ -13,7 +13,6 @@ tags:
   - Unity
 draft: false
 ---
-
 ## Project Context
 
 This project was developed for **KTH EL2320 Applied Estimation**. I built an automated Unity simulation pipeline to compare three localization paradigms for UAV navigation:

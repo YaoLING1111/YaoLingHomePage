@@ -1,7 +1,7 @@
 ---
 title: Distributed Optimization via Chebyshev Polynomial Approximation
 date: 2025-02-01 00:00:00
-description: A public-facing note on my ongoing work around distributed optimization, approximation methods and communication-efficient multi-agent computation.
+description: 分布式优化的挑战.
 cover: /img/projects/provided/distributed-optimization-cover.png
 categories:
   - Research
@@ -12,7 +12,6 @@ tags:
   - Nonconvex Optimization
 draft: false
 ---
-
 ## Public Summary
 
 This is an ongoing research project on communication-efficient distributed optimization for multi-agent systems. The work connects approximation theory, consensus algorithms and nonconvex optimization, with the broader motivation of helping networked agents make decisions without relying on a central coordinator.

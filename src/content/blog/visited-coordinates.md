@@ -1,7 +1,7 @@
 ---
 title: Visited Coordinates
 date: 2026-06-12 00:00:00
-description: 从上海、仙台到斯德哥尔摩，记录学习、项目与旅行交织形成的十一处坐标。
+description: 世界那么大，我想去看看。
 cover: /img/posts/visited-coordinates-cover.png
 categories:
   - Notes
@@ -11,7 +11,6 @@ tags:
   - Exchange
 draft: false
 ---
-
 旅行不是研究主页的主线，但它持续改变我理解工程、城市和生活节奏的方式。
 
 ## East Asia

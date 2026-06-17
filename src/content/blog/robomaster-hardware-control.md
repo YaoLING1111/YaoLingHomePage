@@ -1,7 +1,7 @@
 ---
 title: RoboMaster Hardware and Control Practice
-date: 2023-01-01 00:00:00
-description: RoboMaster 竞赛中的机器人硬件、控制链路、现场调试与可靠性实践。
+date: 2023-12-01 00:00:00
+description: 第一次接触机器人，热爱的开始。
 cover: /img/projects/robomaster/cover.png
 categories:
   - Projects
@@ -12,18 +12,17 @@ tags:
   - Hardware
 draft: false
 ---
-
 ## Competition Practice
 
-我在 2023 年参加 RoboMaster 机器人竞赛，参与硬件与控制相关工作，并获得 Hardware & Control 方向一等奖。
+我在 2023 年参加 RoboMaster 云汉杯机器人竞赛，参与硬件与控制相关工作，并获得 Hardware & Control 方向一等奖。
 
 ### Project Snapshot
 
-| Item | Detail |
-| --- | --- |
-| Year | 2023 |
-| Area | Robot hardware and motion control |
-| Result | First Prize |
+| Item        | Detail                                                |
+| ----------- | ----------------------------------------------------- |
+| Year        | 2023                                                  |
+| Area        | Robot hardware and motion control                     |
+| Result      | First Prize                                           |
 | Environment | Time-constrained team engineering and field debugging |
 
 ![RoboMaster robot prototype](/img/projects/robomaster/prototype-real.jpg)

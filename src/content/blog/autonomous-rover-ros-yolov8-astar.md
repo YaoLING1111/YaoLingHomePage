@@ -1,7 +1,7 @@
 ---
 title: Space Robotics Sand Rover at Tohoku University
-date: 2024-07-01 00:00:00
-description: TESP 2024 暑研项目：在沙地场景中集成 RealSense、ROS、ArUco 定位、YOLOv8 障碍检测、OpenCV 映射、A* 路径规划与 PD 控制。
+date: 2024-08-15 00:00:00
+description: TESP 2024 暑研项目：沙地场景中的机器人设计与搭建。
 cover: /img/projects/provided/japan-summer-rover.png
 categories:
   - Projects
@@ -13,12 +13,9 @@ tags:
   - Space Robotics
 draft: false
 ---
-
 ## Project Context
 
-2024 年暑期，我参加了 Tohoku University Engineering Summer Program (TESP) 的 Space Robotics 项目。我们小组完成了一个面向沙地环境的 **Space Robotics Sand Rover** 原型，用于模拟火星/月面类似地形中的移动机器人导航任务。
-
-项目组成员包括 Andrew Kiefte、Ramona Häuselmann、Yao Ling 和 Paola Carboni。这里整理的是适合公开展示的项目版本：保留系统架构、方法路线和个人收获，不直接公开原始汇报 PDF。
+2024 年暑期，我参加了 Tohoku University Engineering Summer Program (TESP) 的 Space Robotics 项目。我们小组从0搭建，完成了一个面向沙地环境的 **Space Robotics Sand Rover** 原型，用于模拟火星/月面类似地形中的移动机器人导航任务。
 
 ![Space Robotics Sand Rover](/img/projects/japan-summer-rover/robot.webp)
 
