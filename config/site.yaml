@@ -15,19 +15,20 @@ site:
   alternate: '' # 避免 SEO 标题重复，Logo 回退使用站点名称
   subtitle: Robotics · State Estimation · Distributed Optimization # 网站副标题
   name: Yao Ling # 作者名称 - 请修改为你的名字
-  description: 上海交通大学智能感知本科生，KTH Computer Science 交换生，关注机器人估计、优化、多机器人系统与自主移动机器人。 # 网站描述
+  description: 上海交通大学智能感知工程专业2027届本科生，KTH Royal Institute of Technology 交换生，主要兴趣为机器人、理论控制优化和安全、多传感器融合等领域。 # 网站描述
   avatar: /img/personal_photo.JPG # 网站头像
   showLogo: false # 使用克制的文字 Logo
   author: Yao Ling # 作者名称 - 请修改为你的名字
   url: https://yao-ling-home-page.vercel.app # 站点 URL 用于 SEO
   defaultOgImage: /img/personal_photo.JPG # 默认 Open Graph 图片
-  startYear: 2024 # 建站年份
+  startYear: 2026 # 建站年份
   timezone: Asia/Shanghai # 时区配置 (IANA 格式)，用于日期显示和处理
   keywords: # SEO 关键词 (全局)
     - Robotics
     - State Estimation
     - Distributed Optimization
-    - Multi-Robot Systems
+    - Multi-Sensor Fusion
+    - Secure Control Theory
     # 请根据你的网站内容添加关键词
   # breadcrumbHome: 首页  # 面包屑导航中首页的显示名称（默认: '首页'）
   # icp:                         # ICP 备案号（可自定义链接）
