@@ -17,12 +17,12 @@ const countries: Country[] = [
   { id: 'th', selector: '#TH', name: '泰国', en: 'Thailand', region: '东南亚', x: 76.8, y: 48.2, note: '第一次出国。记忆里的榴莲和山竹碰撞出东南亚的夏天。' },
   { id: 'se', selector: '#SE', name: '瑞典', en: 'Sweden', region: '欧洲', x: 52.9, y: 17.8, note: '斯京的教堂钟声还在回荡。宫崎骏动画里的城市。漫天白雪里我看见自己的灵魂。' },
   { id: 'fi', selector: '#FI', name: '芬兰', en: 'Finland', region: '欧洲', x: 55.1, y: 16.2, note: '坐船从斯京出发，去赫尔辛基。小小的城市，清冷的气质。' },
-  { id: 'fr', selector: '.France', name: '法国', en: 'France', region: '欧洲', x: 50.5, y: 27.2, note: '从卢浮宫到巴黎圣母院，从凯旋门到塞纳河游船。太多的名胜。一直想要去的地方，浪漫于艺术是心底的召唤。' },
-  { id: 'de', selector: '#DE', name: '德国', en: 'Germany', region: '欧洲', x: 52, y: 24.2, note: '严肃与荒共存。随处可见的涂鸦，从柏林墙一直挤到旅馆电梯墙上。' },
+  { id: 'fr', selector: '.France', name: '法国', en: 'France', region: '欧洲', x: 50.5, y: 27.2, note: '从卢浮宫到巴黎圣母院，从凯旋门到塞纳河游船。太多的名胜。一直想要去的地方，浪漫与艺术是心底的召唤。' },
+  { id: 'de', selector: '#DE', name: '德国', en: 'Germany', region: '欧洲', x: 52, y: 24.2, note: '严肃与荒诞戏谑共存。随处可见的涂鸦，从柏林墙一直挤到旅馆电梯墙上。' },
   { id: 'at', selector: '#AT', name: '奥地利', en: 'Austria', region: '欧洲', x: 52.8, y: 27.3, note: '马车缓缓驶过茜茜公主的城堡。维也纳用音乐和艺术，将它的痛苦抚平。' },
-  { id: 'ro', selector: '#RO', name: '罗马尼亚', en: 'Romania', region: '欧洲', x: 55.2, y: 29, note: '东欧小城。仿佛回到故乡的乡间。教堂，修道院，博物馆，街头耍杂卖艺的人们。' },
+  { id: 'ro', selector: '#RO', name: '罗马尼亚', en: 'Romania', region: '欧洲', x: 55.2, y: 29, note: '东欧小城。仿佛回到故乡的乡间。一切都在讲述曾经繁荣。' },
   { id: 'es', selector: '#ES', name: '西班牙', en: 'Spain', region: '欧洲', x: 48.5, y: 32, note: '阳光、海滩，日出。受够了漫长黑夜的北欧居民，总念叨的度假圣地。建筑学者必须朝圣的地方。海鲜饭也甚是美味。' },
-  { id: 'pt', selector: '#PT', name: '葡萄牙', en: 'Portugal', region: '欧洲', x: 46.6, y: 32.4, note: '带轨的黄色电车。里斯本的Hippotrip，从岸上一直开到水中。' },
+  { id: 'pt', selector: '#PT', name: '葡萄牙', en: 'Portugal', region: '欧洲', x: 46.6, y: 32.4, note: '带轨的黄色电车和金灿灿的蛋挞。可以去海鲜市场一品美味。' },
 ];
 
 const games = [
