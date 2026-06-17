@@ -1,26 +1,21 @@
 ---
 layout: ../layouts/PageLayout.astro
-title: "歌单"
-description: "我喜欢的音乐"
+title: "Playlist"
+description: "Songs for coding, drifting, and late-night thinking."
 ---
 
-这里可以放你喜欢的音乐歌单。
-
-使用 `{% media audio %}` 标签嵌入网易云音乐或 QQ 音乐歌单：
-
-```markdown
-{% media audio %}
-- title: 我的歌单
-  list:
-    - https://music.163.com/#/playlist?id=你的歌单ID
-{% endmedia %}
-```
+一些会放在页面播放器和浮动 BGM 里的歌。之后你继续发链接，我可以直接往这里加。
 
 {% media audio %}
-- title: 诗岸歌单 山山～全是山山～
+- title: Yao Ling's BGM
   list:
-    - https://music.163.com/#/playlist?id=8676645748
-- title: 超かぐや姫！
-  list:
-    - https://music.163.com/#/album?id=358640968
+    - https://music.163.com/song?id=440355309
+    - https://music.163.com/song?id=28524471
+    - https://music.163.com/song?id=186421
+    - https://music.163.com/song?id=453927794
+    - https://music.163.com/song?id=1490343020
+    - https://music.163.com/song?id=346089
+    - https://music.163.com/song?id=16321057
+    - https://music.163.com/song?id=26095964
+    - https://music.163.com/song?id=27483202
 {% endmedia %}

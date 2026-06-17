@@ -25,7 +25,7 @@ const showComments = frontmatter.comments ?? true;
   <TwoColumnLayout>
     <Cover slot="cover" title={frontmatter.coverTitle ?? frontmatter.title} />
     <HomeSider slot="sider" />
-    <div class={`shadow-box bg-gradient-start mx-0 flex w-full flex-col gap-8 ${CONTENT_PADDING.standard}`}>
+    <div class={`research-panel my-6 mr-3 flex w-full flex-col gap-8 tablet:mx-3 tablet:my-3 ${CONTENT_PADDING.standard}`}>
       <div class="prose md:prose-sm dark:prose-invert" data-pagefind-body>
         <CustomContent>
           <slot />

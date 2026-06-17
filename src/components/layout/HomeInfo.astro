@@ -1,16 +1,14 @@
 ---
-import ChristmasHat from '@components/christmas/ChristmasHat.astro';
 import ButtonLink from '@components/control/ButtonLink.astro';
 import type { HomeSiderType } from '@constants/enum';
 import { RESERVED_ROUTES } from '@constants/router';
-import { christmasConfig, configuredSeriesSlugs, enabledSeriesSlugs, routers, siteConfig } from '@constants/site-config';
+import { configuredSeriesSlugs, enabledSeriesSlugs, routers, siteConfig } from '@constants/site-config';
 import { getAllTags, getCategoryList, getPostCount, getSortedPosts } from '@lib/content';
 import { getLqipStyle } from '@lib/lqip';
 import { cn, filterNavItems } from '@lib/utils';
 import { Icon } from 'astro-icon/components';
 import { getLocaleFromUrl, localizedPath, resolveNavName, stripLocaleFromPath, t } from '@/i18n';
 import type { BlogSchema } from '@/types/blog';
-import Social from './Social.astro';
 
 interface Props {
   type?: HomeSiderType;
@@ -36,22 +34,22 @@ const filteredRouters = filterNavItems(routers, configuredSeriesSlugs, enabledSe
 const strippedPath = stripLocaleFromPath(Astro.url.pathname);
 ---
 
-<div class={cn('flex flex-col items-center md:py-2', className)} data-home-info-container={uniqueId}>
-  <div class="relative h-40 w-40 rounded-full" style={getLqipStyle(siteConfig.avatar ?? '/img/avatar.webp')}>
+<div class={cn('home-info-card research-panel my-6 flex flex-col items-center px-5 py-7 md:my-2 md:py-5', className)} data-home-info-container={uniqueId}>
+  <div class="relative h-32 w-32 rounded-3xl" style={getLqipStyle(siteConfig.avatar ?? '/img/avatar.webp')}>
     <img
       transition:persist="page-home-info-avatar"
-      class="shadow-card-darker hover:animate-shake h-full w-full rounded-full transition"
+      class="h-full w-full rounded-3xl border-4 border-white/80 object-cover shadow-[0_14px_35px_rgba(45,68,98,0.2)] transition duration-300 hover:-translate-y-1 dark:border-slate-700/80"
       src={siteConfig.avatar ?? '/img/avatar.webp'}
       alt={`${siteConfig.name ?? ''} avatar`}
       loading="eager"
       fetchpriority="high"
     />
-    {christmasConfig.enabled && christmasConfig.features.christmasHat && <ChristmasHat />}
   </div>
 
-  <p class="mt-2">{siteConfig?.name}</p>
-  <p class="text-muted-foreground mt-3 text-center">{siteConfig?.description}</p>
-  <Social />
+  <p class="mt-5 text-xl font-bold tracking-wide">{siteConfig?.name}</p>
+  <p class="text-primary mt-1 text-center text-xs font-semibold uppercase tracking-[0.18em]">{siteConfig?.subtitle}</p>
+  <p class="text-muted-foreground mt-4 text-center text-sm leading-6">{siteConfig?.description}</p>
+  <p class="profile-email-text">zero-in-ur-area@sjtu.edu.cn</p>
   <div
     class="text-muted-foreground mt-3 flex justify-center text-center text-sm/4 whitespace-nowrap select-none dark:text-white/80"
   >
@@ -72,7 +70,7 @@ const strippedPath = stripLocaleFromPath(Astro.url.pathname);
       {t(locale, 'homeInfo.tags')}
     </a>
   </div>
-  <div class="mt-6 flex w-full flex-col items-center gap-2.5">
+  <div class="mt-6 flex w-full flex-col items-center gap-2">
     {
       filteredRouters.map((item, index) => {
         const displayName = resolveNavName(item.nameKey, item.name, locale);
@@ -80,11 +78,11 @@ const strippedPath = stripLocaleFromPath(Astro.url.pathname);
           const collapseId = `${uniqueId}-collapse-${index}`;
           return (
             <div
-              class="bg-foreground/10 flex w-40 flex-col rounded-xl opacity-75 transition-all duration-300 hover:opacity-100"
+              class="border-border/70 bg-background/55 flex w-full flex-col rounded-xl border transition-all duration-300"
               data-collapsible
             >
               <button
-                class="flex-center hover:bg-foreground/5 h-12 w-full cursor-pointer rounded-xl transition-colors"
+                class="flex-center hover:bg-primary/8 h-11 w-full cursor-pointer rounded-xl transition-colors"
                 data-collapse-trigger={collapseId}
                 aria-expanded="false"
                 aria-label={t(locale, 'common.menuLabel', { name: displayName })}
@@ -108,7 +106,7 @@ const strippedPath = stripLocaleFromPath(Astro.url.pathname);
                         url={childUrl}
                         label={childName}
                         variant="gradient-shoka"
-                        className={cn('shoka-button-shadow h-12 w-40 rounded-xl text-base tracking-wider', {
+                        className={cn('h-11 w-full rounded-xl bg-none text-sm tracking-wide shadow-none', {
                           'text-muted-foreground/80 hover:bg-muted-foreground/10 bg-none shadow-none hover:shadow-none':
                             child.path !== strippedPath,
                         })}
@@ -130,7 +128,7 @@ const strippedPath = stripLocaleFromPath(Astro.url.pathname);
             label={displayName}
             variant="gradient-shoka"
             className={cn(
-              'shoka-button-shadow h-12 w-40 rounded-xl text-base tracking-wider opacity-75 transition-all duration-300 hover:opacity-100',
+              'h-11 w-full rounded-xl border border-transparent bg-none text-sm tracking-wide shadow-none transition-all duration-300 hover:border-primary/20 hover:bg-primary/8',
               {
                 'text-muted-foreground/80 hover:bg-muted-foreground/10 bg-none shadow-none hover:shadow-none':
                   item.path !== strippedPath,
@@ -147,6 +145,30 @@ const strippedPath = stripLocaleFromPath(Astro.url.pathname);
 </div>
 
 <style>
+  .home-info-card {
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.86)),
+      url('/img/backgrounds/sidebar-day.jpg') center / cover no-repeat;
+  }
+
+  :global(.dark) .home-info-card {
+    background:
+      linear-gradient(rgba(8, 17, 32, 0.58), rgba(8, 17, 32, 0.68)),
+      url('/img/backgrounds/sidebar-day.jpg') center / cover no-repeat;
+  }
+
+  .profile-email-text {
+    margin: 0.85rem 0 0;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid hsl(var(--border) / 0.68);
+    border-radius: 999px;
+    color: hsl(var(--muted-foreground));
+    background: hsl(var(--background) / 0.55);
+    font-size: 0.72rem;
+    line-height: 1;
+    backdrop-filter: blur(10px);
+  }
+
   /* 折叠动画使用 CSS Grid 技巧实现平滑的高度过渡 */
   [data-collapse-content] {
     display: grid;

@@ -3,14 +3,14 @@ import HomeSider from '@components/layout/HomeSider.astro';
 import PostList from '@components/post/PostList.astro';
 import Cover from '@components/ui/cover/Cover.astro';
 import { CONTENT_PADDING, PAGINATION } from '@constants/layout';
-import { seoConfig, siteConfig } from '@constants/site-config';
+import { seoConfig } from '@constants/site-config';
 import Layout from '@layouts/Layout.astro';
 import TwoColumnLayout from '@layouts/TwoColumnLayout.astro';
 import { getHomePagePosts } from '@lib/content';
 import { toPostCardDataList } from '@lib/content/transforms';
 import type { Page } from 'astro';
 import type { BlogPost } from 'types/blog';
-import CategoryCards from '@/components/post/CategoryCards.astro';
+import PersonalHomeSections from '@/components/home/PersonalHomeSections.astro';
 import Divider from '@/components/ui/divider';
 import { getLocaleFromUrl, localizedPath, t } from '@/i18n';
 
@@ -54,22 +54,18 @@ const page: Page<BlogPost> = {
     <Cover slot="cover" />
     <HomeSider slot="sider" />
     <div
-      class={`bg-gradient-start shadow-box tablet:shadow-none flex flex-col gap-4 overflow-hidden  ${CONTENT_PADDING.standard}`}
+      class={`research-panel my-6 mr-3 flex flex-col gap-5 overflow-hidden tablet:mx-3 tablet:my-3 ${CONTENT_PADDING.standard}`}
     >
+      <PersonalHomeSections />
       {stickyPosts.length > 0 && (
         <>
           <Divider>{t(locale, 'post.stickyPosts')}</Divider>
           <PostList posts={stickyPosts} showPaginator={false} />
         </>
       )}
-      <Divider>{t(locale, 'post.postList')}</Divider>
+      <Divider>Latest Notes</Divider>
       <PostList posts={posts} page={page} showPaginator={true} baseUrl={postsBaseUrl} isHomePage={true} />
-      {!!siteConfig?.featuredCategories?.length && (
-        <>
-          <Divider className="mt-6">{t(locale, 'post.featuredCategories')}</Divider>
-          <CategoryCards />
-        </>
-      )}
+      {/* Featured categories are hidden for the current personal homepage direction. */}
     </div>
   </TwoColumnLayout>
 </Layout>

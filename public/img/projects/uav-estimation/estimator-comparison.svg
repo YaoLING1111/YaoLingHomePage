@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">EKF PF Hybrid Comparison</title>
+  <desc id="desc">High-level comparison of EKF, augmented particle filter, and hybrid EKF-PF for UAV localization.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f4f8fb"/><stop offset="1" stop-color="#e3edf8"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="16" stdDeviation="15" flood-color="#304b66" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1200" height="760" rx="42" fill="url(#bg)"/>
+  <text x="70" y="92" fill="#22354a" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="800">Estimator Trade-off Map</text>
+  <text x="72" y="130" fill="#66788a" font-family="Inter, Arial, sans-serif" font-size="18">Precision, global recovery, and computational budget</text>
+  <g font-family="Inter, Arial, sans-serif" filter="url(#shadow)">
+    <g transform="translate(80 205)">
+      <rect width="310" height="350" rx="32" fill="#ffffff" opacity=".86"/>
+      <circle cx="242" cy="88" r="58" fill="#dfeaff"/>
+      <path d="M95 215c55-78 110-78 165 0" stroke="#5d8bd4" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <text x="36" y="62" fill="#5575aa" font-size="15" font-weight="800">LOCAL GAUSSIAN</text>
+      <text x="36" y="105" fill="#203246" font-size="34" font-weight="850">EKF</text>
+      <text x="36" y="155" fill="#657789" font-size="18">Fast and smooth tracking</text>
+      <text x="36" y="280" fill="#203246" font-size="17" font-weight="700">Best for:</text>
+      <text x="36" y="312" fill="#6b7d8f" font-size="16">local precision, low compute</text>
+    </g>
+    <g transform="translate(445 205)">
+      <rect width="310" height="350" rx="32" fill="#ffffff" opacity=".86"/>
+      <circle cx="120" cy="225" r="8" fill="#d86d7a"/><circle cx="160" cy="190" r="8" fill="#d86d7a"/><circle cx="205" cy="230" r="8" fill="#d86d7a"/><circle cx="240" cy="175" r="8" fill="#d86d7a"/><circle cx="96" cy="174" r="8" fill="#d86d7a"/>
+      <text x="36" y="62" fill="#3f8c99" font-size="15" font-weight="800">GLOBAL SAMPLES</text>
+      <text x="36" y="105" fill="#203246" font-size="34" font-weight="850">PF / MCL</text>
+      <text x="36" y="155" fill="#657789" font-size="18">Handles multi-modal belief</text>
+      <text x="36" y="280" fill="#203246" font-size="17" font-weight="700">Best for:</text>
+      <text x="36" y="312" fill="#6b7d8f" font-size="16">kidnapped recovery, ambiguity</text>
+    </g>
+    <g transform="translate(810 205)">
+      <rect width="310" height="350" rx="32" fill="#ffffff" opacity=".86"/>
+      <path d="M75 218c45-60 88-62 135-5s78 55 118-5" stroke="#7f6fbd" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <circle cx="105" cy="200" r="7" fill="#5c8fd6"/><circle cx="245" cy="196" r="7" fill="#d86d7a"/><circle cx="180" cy="226" r="7" fill="#5c8fd6"/>
+      <text x="36" y="62" fill="#6e61a8" font-size="15" font-weight="800">MIXED REPRESENTATION</text>
+      <text x="36" y="105" fill="#203246" font-size="34" font-weight="850">Hybrid</text>
+      <text x="36" y="155" fill="#657789" font-size="18">Guided particles + EKF cues</text>
+      <text x="36" y="280" fill="#203246" font-size="17" font-weight="700">Best for:</text>
+      <text x="36" y="312" fill="#6b7d8f" font-size="16">sample efficiency experiments</text>
+    </g>
+  </g>
+  <g transform="translate(135 630)" font-family="Inter, Arial, sans-serif">
+    <rect width="930" height="58" rx="29" fill="#ffffff" opacity=".75"/>
+    <text x="45" y="37" fill="#5d6f80" font-size="17">Stress test: scripted kidnapped event · metrics: RMSE, recovery time, runtime cost</text>
+  </g>
+</svg>

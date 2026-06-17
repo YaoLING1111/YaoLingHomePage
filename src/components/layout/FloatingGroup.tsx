@@ -3,18 +3,18 @@
  *
  * Floating action buttons for navigation and utilities.
  * - Scroll to top/bottom
- * - Christmas effects toggle
+ * - Ambient particle mode switch
  * - Expand/collapse toggle
  */
 
-import { bgmConfig, christmasConfig } from '@constants/site-config';
+import { bgmConfig } from '@constants/site-config';
 import { useIsMounted } from '@hooks/useIsMounted';
 import { useTranslation } from '@hooks/useTranslation';
 import { Icon } from '@iconify/react';
 import { cn } from '@lib/utils';
 import { useStore } from '@nanostores/react';
 import { $bgmPanelOpen, toggleBgmPanel } from '@store/bgm';
-import { christmasEnabled, disableChristmasCompletely, enableChristmas, initChristmasState } from '@store/christmas';
+import { cycleParticleMode, initParticleMode, particleMode } from '@store/particles';
 import { $isDrawerOpen } from '@store/modal';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
@@ -53,25 +53,19 @@ export default function FloatingGroup() {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(true);
   const isDrawerOpen = useStore($isDrawerOpen);
-  const isChristmasEnabled = useStore(christmasEnabled);
+  const activeParticleMode = useStore(particleMode);
   const isBgmPanelOpen = useStore($bgmPanelOpen);
 
-  // Initialize christmas state on mount
   useEffect(() => {
-    initChristmasState();
+    initParticleMode();
   }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const scrollToBottom = () => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
 
-  const toggleChristmas = () => {
-    if (christmasEnabled.get()) {
-      disableChristmasCompletely();
-    } else {
-      enableChristmas();
-    }
-  };
+  const particleLabel = activeParticleMode === 'off' ? 'Particles: off' : activeParticleMode === 'sakura' ? 'Particles: sakura' : 'Particles: snow';
+  const particleIcon = activeParticleMode === 'off' ? 'ri:sparkling-2-line' : activeParticleMode === 'sakura' ? 'ri:flower-line' : 'ri:snowflake-line';
 
   const toggleExpand = () => setIsExpanded((prev) => !prev);
 
@@ -97,11 +91,9 @@ export default function FloatingGroup() {
             exit={{ y: 50, opacity: 0 }}
             transition={{ duration: 0.15, ease: 'easeInOut' }}
           >
-            {christmasConfig.enabled && (
-              <FloatingButton onClick={toggleChristmas} ariaLabel={t('floating.christmas')} title={t('floating.christmas')}>
-                <Icon icon={isChristmasEnabled ? 'ri:snowy-fill' : 'ri:snowy-line'} className="h-5 w-5" />
-              </FloatingButton>
-            )}
+            <FloatingButton onClick={cycleParticleMode} ariaLabel={particleLabel} title={particleLabel}>
+              <Icon icon={particleIcon} className="h-5 w-5" />
+            </FloatingButton>
             {bgmConfig.enabled && bgmConfig.audio.length > 0 && (
               <FloatingButton onClick={toggleBgmPanel} ariaLabel={t('floating.bgm')} title={t('floating.bgm')} dataBgmToggle>
                 <Icon icon={isBgmPanelOpen ? 'ri:music-2-fill' : 'ri:music-2-line'} className="h-5 w-5" />

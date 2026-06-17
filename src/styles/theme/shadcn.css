@@ -1,23 +1,23 @@
 /* shadCN theme - https://ui.shadcn.com/themes */
 @layer base {
   :root {
-    --background: 0 12% 99%;
-    --foreground: 0 0% 20%;
+    --background: 214 32% 96%;
+    --foreground: 219 30% 18%;
 
-    --card: 0 12% 99%;
-    --card-foreground: 240 10% 3.9%;
+    --card: 210 40% 99%;
+    --card-foreground: 219 30% 18%;
 
     --popover: 0 12% 99%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 351 77% 62%;
-    --primary-foreground: 355.7 100% 97.3%;
+    --primary: 214 67% 52%;
+    --primary-foreground: 210 40% 98%;
 
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 0 0% 35%;
+    --muted: 214 28% 93%;
+    --muted-foreground: 218 15% 43%;
 
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
@@ -25,33 +25,33 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 346.8 77.2% 49.8%;
+    --border: 214 24% 86%;
+    --input: 214 24% 86%;
+    --ring: 214 67% 52%;
 
-    --badge-primary: 351 49% 50%;
+    --badge-primary: 214 56% 48%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 216 13% 15%;
+    --background: 220 25% 10%;
     --foreground: 0 0% 95%;
 
-    --card: 216 13% 15%;
+    --card: 220 22% 14%;
     --card-foreground: 0 0% 95%;
 
     --popover: 216 13% 15%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 350 77% 70%;
+    --primary: 211 78% 68%;
     --primary-foreground: 355.7 100% 97.3%;
 
-    --secondary: 216 13% 22%;
+    --secondary: 218 20% 20%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 216 13% 22%;
-    --muted-foreground: 0 0% 63%;
+    --muted: 218 20% 20%;
+    --muted-foreground: 215 16% 67%;
 
     --accent: 216 13% 22%;
     --accent-foreground: 0 0% 98%;
@@ -59,11 +59,11 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
 
-    --border: 216 13% 25%;
-    --input: 216 13% 25%;
-    --ring: 346.8 77.2% 49.8%;
+    --border: 217 20% 25%;
+    --input: 217 20% 25%;
+    --ring: 211 78% 68%;
 
-    --badge-primary: 350 77% 70%;
+    --badge-primary: 211 78% 68%;
 
     --radius: 0.75rem;
   }

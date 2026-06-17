@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">CASO Algorithm Flow</title>
+  <desc id="desc">A four-stage Chebyshev-Accelerated Surrogate Optimization flow diagram.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f3f7fb"/><stop offset="1" stop-color="#e4edf7"/></linearGradient>
+    <linearGradient id="grad" x1="0" x2="1"><stop offset="0" stop-color="#5a83d7"/><stop offset="1" stop-color="#60c2c6"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="16" stdDeviation="15" flood-color="#304b66" flood-opacity=".15"/></filter>
+  </defs>
+  <rect width="1200" height="760" rx="42" fill="url(#bg)"/>
+  <circle cx="1010" cy="135" r="190" fill="#fff" opacity=".45"/>
+  <circle cx="155" cy="640" r="210" fill="#71c7c8" opacity=".12"/>
+  <text x="70" y="92" fill="#21364b" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="800">CASO: Certified Surrogate Optimization</text>
+  <text x="72" y="130" fill="#64788b" font-family="Inter, Arial, sans-serif" font-size="18">Chebyshev approximation · accelerated coefficient consensus · certified stopping</text>
+  <g font-family="Inter, Arial, sans-serif" filter="url(#shadow)">
+    <g transform="translate(70 220)">
+      <rect width="230" height="220" rx="30" fill="#fff" opacity=".88"/>
+      <text x="28" y="52" fill="#5776ac" font-size="15" font-weight="800">STAGE 0</text>
+      <text x="28" y="92" fill="#203246" font-size="25" font-weight="850">Spectral Setup</text>
+      <text x="28" y="130" fill="#6b7d8f" font-size="16">Estimate network</text>
+      <text x="28" y="154" fill="#6b7d8f" font-size="16">mixing quantities</text>
+    </g>
+    <g transform="translate(345 220)">
+      <rect width="230" height="220" rx="30" fill="#fff" opacity=".88"/>
+      <text x="28" y="52" fill="#5776ac" font-size="15" font-weight="800">STAGE 1</text>
+      <text x="28" y="92" fill="#203246" font-size="25" font-weight="850">Local Surrogate</text>
+      <text x="28" y="130" fill="#6b7d8f" font-size="16">Build Chebyshev</text>
+      <text x="28" y="154" fill="#6b7d8f" font-size="16">polynomial model</text>
+    </g>
+    <g transform="translate(620 220)">
+      <rect width="230" height="220" rx="30" fill="#fff" opacity=".88"/>
+      <text x="28" y="52" fill="#5776ac" font-size="15" font-weight="800">STAGE 2</text>
+      <text x="28" y="92" fill="#203246" font-size="25" font-weight="850">Coefficient Mix</text>
+      <text x="28" y="130" fill="#6b7d8f" font-size="16">Accelerated consensus</text>
+      <text x="28" y="154" fill="#6b7d8f" font-size="16">with stopping rule</text>
+    </g>
+    <g transform="translate(895 220)">
+      <rect width="230" height="220" rx="30" fill="#fff" opacity=".88"/>
+      <text x="28" y="52" fill="#5776ac" font-size="15" font-weight="800">STAGE 3</text>
+      <text x="28" y="92" fill="#203246" font-size="25" font-weight="850">Global Extract</text>
+      <text x="28" y="130" fill="#6b7d8f" font-size="16">Algebraic minimizer</text>
+      <text x="28" y="154" fill="#6b7d8f" font-size="16">from shared surrogate</text>
+    </g>
+  </g>
+  <g stroke="url(#grad)" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M300 330H340"/><path d="M575 330H615"/><path d="M850 330H890"/>
+  </g>
+  <g transform="translate(150 545)" font-family="Inter, Arial, sans-serif">
+    <rect width="900" height="92" rx="32" fill="url(#grad)" opacity=".92"/>
+    <text x="42" y="38" fill="#fff" font-size="22" font-weight="850">Output target</text>
+    <text x="42" y="68" fill="#ecfbff" font-size="17">Each node recovers a certified near-global minimizer with reduced communication on sparse networks.</text>
+  </g>
+</svg>

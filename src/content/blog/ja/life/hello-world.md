@@ -8,6 +8,7 @@ tags:
   - 生活
 categories:
   - 随笔
+draft: true
 ---
 
 こんにちは、世界！これは初めてのエッセイです。

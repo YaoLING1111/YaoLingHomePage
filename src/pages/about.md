@@ -1,34 +1,45 @@
 ---
 layout: ../layouts/PageLayout.astro
-title: "About"
-coverTitle: "关于我"
-date: 2025-01-03 01:01:33
-description: "关于我？"
+title: "About Yao Ling"
+coverTitle: "About"
+date: 2026-06-12 00:00:00
+description: "Yao Ling 的教育背景、研究方向、项目经历与技术兴趣。"
 ---
 
-## 你好，这里是余弦
+## Hello
 
-[![github badge](https://img.shields.io/badge/dynamic/json?color=blue&label=Github&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dgithub%26queryKey%3Dyusixian)](https://github.com/yusixian)
+我是 **Yao Ling**，上海交通大学智能感知方向本科生，曾赴 KTH Royal Institute of Technology 的 Computer Science 项目交换学习。我的兴趣集中在机器人状态估计、分布式优化、多机器人系统与自主移动机器人，希望把数学模型落实到可验证、可复现的工程系统中。
 
-cosine = 余弦 = cos
+## Education
 
-愿热情永存，愿热爱不灭，愿生活无憾
+- **Shanghai Jiao Tong University**, IntelliSense / 感知科学与工程，本科，2023–2027
+- **KTH Royal Institute of Technology**, Computer Science Exchange, 2025
 
-> 我们 都只是无名之辈 \
-> 做你自己最喜欢的事 \
-> 像花一样 肆意绽放 \
-> 不去管 有没有人欣赏
+## Research Interests
 
-### 找到我
+- State estimation and sensor fusion for robotic navigation
+- Distributed optimization for large-scale multi-robot networks
+- Autonomous mobile robots, motion planning and control
+- Robot perception, computer vision and learning-based methods
 
-个人 Telegram 前端频道：日常碎碎念，偶尔掉落优质前端博文推荐、学习资源等
+## Research Projects
 
-https://t.me/cosine_front_end
+- **Distributed Optimization via Chebyshev Polynomial Approximation**: 使用 Chebyshev 多项式近似局部目标函数，研究在无中心节点的多机器人网络中降低通信复杂度的方法。
+- **State Estimation Paradigms for UAV Navigation**: 在 Unity 仿真压力场景中比较 EKF、Augmented MCL 与 Hybrid EKF-PF 的鲁棒性、恢复能力和计算效率。
+- **Autonomous Rover with ROS, YOLOv8 and A\***: 将目标检测、路径规划与 ROS 系统集成为自主移动小车原型。
+- **RoboMaster Hardware and Control Practice**: 在竞赛环境中积累机器人硬件、控制链路、调试与可靠性实践。
 
-Gitbook 前端学习记录
+## Technical Skills
 
-https://book.cosine.ren/
+- **Robotics and Control**: ROS, motion planning, PID control, RoboMaster
+- **Estimation and Optimization**: state estimation, EKF, particle filters, Chebyshev approximation
+- **Vision and AI**: PyTorch, OpenCV, YOLOv8, diffusion models
+- **Programming**: C++, Python, MATLAB, C#, Node.js
 
-[![GitHub State](https://git-stats.cosine.ren/api?username=yusixian&theme=dark&show_icons=true&hide_border=true)](https://github.com/anuraghazra/github-readme-stats)
+## After Hours
 
-[![GitHub Streak](https://github-readme-streak-stats-rust-tau.vercel.app?user=yusixian&theme=dark&date_format=%5BY%20%5DM%20&hide_border=true)](https://git.io/streak-stats)
+科研之外，我喜欢旅行、桌游和运动。去过的坐标包括中国、日本、泰国、瑞典、芬兰、法国、德国、奥地利、罗马尼亚、西班牙与葡萄牙；桌游从 UNO、阿瓦隆到桥牌和 ACQUIRE；运动则包括羽毛球、乒乓球、网球、跆拳道、花样滑冰、游泳、射箭、篮球与排球。
+
+## CV
+
+[查看或下载 CV](/cv.pdf)

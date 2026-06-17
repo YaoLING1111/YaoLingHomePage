@@ -8,6 +8,7 @@ tags:
   - 周刊
 categories:
   - 周刊
+draft: true
 ---
 
 This is an example weekly issue, demonstrating how the weekly/series feature works.

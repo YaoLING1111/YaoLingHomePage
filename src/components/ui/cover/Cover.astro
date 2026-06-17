@@ -3,7 +3,6 @@ import { Routes } from '@constants/router';
 import { createArticleStatsConfig, siteConfig } from '@constants/site-config';
 import { getPostReadingTime } from '@lib/content/posts';
 import { displayDate } from '@lib/date';
-import { getLqipStyle } from '@lib/lqip';
 import { routeBuilder } from '@lib/route';
 import { Icon } from 'astro-icon/components';
 import type { BlogPost } from 'types/blog';
@@ -24,19 +23,19 @@ const { date, updated, title: dataTitle, draft } = data?.data ?? {};
 const readState = data ? getPostReadingTime(data) : null;
 const isDraft = import.meta.env.DEV && draft === true;
 
-// 获取横幅图片的 LQIP 样式
-const bannerLqipStyle = getLqipStyle('/img/site_header_1920.webp');
-
 const locale = getLocaleFromUrl(Astro.url.pathname);
 
 const href = data && localizedPath(routeBuilder(Routes.Post, data), locale);
 
 const pageStatsConfig = href ? createArticleStatsConfig(href) : null;
+
+const coverImage = data?.data.cover ?? '/img/backgrounds/home-info-top.jpg';
+const hasPostCover = Boolean(data?.data.cover);
 ---
 
-<div class="relative flex h-[60dvh] z-0 max-h-200 overflow-hidden">
-  <div class="absolute inset-0 h-full bg-black/40"></div>
-  <div class="absolute inset-0 bottom-[8dvh] flex flex-col items-center justify-center px-5 text-white">
+<div class="research-cover relative z-0 flex h-[48dvh] min-h-105 max-h-150 overflow-hidden">
+  <div class="absolute inset-0 bg-[linear-gradient(120deg,rgba(8,24,48,0.78),rgba(22,48,92,0.46),rgba(6,14,34,0.72))]"></div>
+  <div class="absolute inset-0 bottom-[4dvh] flex flex-col items-center justify-center px-5 text-white">
     {
       title ? (
         <h1
@@ -102,21 +101,22 @@ const pageStatsConfig = href ? createArticleStatsConfig(href) : null;
     }
   </div>
   <div
-    class="relative -z-10 h-full min-h-60 w-full"
+    class="relative -z-10 h-full min-h-60 w-full overflow-hidden bg-[#17375f] bg-cover bg-center"
+    style={`background-image: url('${coverImage}');`}
     transition:persist="page-cover-banner"
     id="banner-box"
-    style={bannerLqipStyle}
   >
-    <img
-      src="/img/site_header_1920.webp"
-      alt="cover"
-      class="h-full w-full object-cover"
-      sizes="50vw"
-      srcset="/img/site_header_800.webp 800w,/img/site_header_1920.webp 1200w"
-      loading="eager"
-      fetchpriority="high"
-      decoding="async"
-    />
+    {
+      hasPostCover && (
+        <>
+          <div class="absolute inset-[-1.5rem] bg-cover bg-center opacity-60 blur-xl saturate-110" style={`background-image: url('${coverImage}');`} />
+          <img src={coverImage} alt="" class="absolute inset-0 h-full w-full object-contain p-4 md:p-2" loading="eager" fetchpriority="high" />
+        </>
+      )
+    }
+    <div class="absolute inset-0 bg-[linear-gradient(120deg,rgba(5,12,30,0.35),rgba(8,18,40,0.1),rgba(5,12,30,0.42))]"></div>
+    <div class="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_92%)]"></div>
+    <div class="absolute inset-x-[12%] top-[38%] h-px rotate-[-5deg] bg-gradient-to-r from-transparent via-cyan-100/70 to-transparent shadow-[0_0_22px_rgba(165,243,252,.5)]"></div>
   </div>
   <WaveSvg />
 </div>

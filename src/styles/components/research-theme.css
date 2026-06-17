@@ -1,0 +1,246 @@
+/* Research-blog visual layer inspired by Fuwari's spacing and card language. */
+.research-panel {
+  background: hsl(var(--card) / 0.86);
+  border: 1px solid hsl(var(--border) / 0.8);
+  border-radius: 1.5rem;
+  box-shadow: var(--surface-shadow);
+  backdrop-filter: blur(18px);
+}
+
+/* Bring legacy page containers into the same visual system without changing routing components. */
+.shadow-box.bg-gradient-start,
+.bg-gradient-start.shadow-box {
+  margin-top: 1.5rem;
+  margin-right: 0.75rem;
+  margin-bottom: 1.5rem;
+  background: hsl(var(--card) / 0.86);
+  border: 1px solid hsl(var(--border) / 0.8);
+  border-radius: 1.5rem;
+  box-shadow: var(--surface-shadow);
+  backdrop-filter: blur(18px);
+}
+
+.prose :is(h2, h3) {
+  color: hsl(var(--foreground));
+}
+
+.prose a {
+  color: hsl(var(--primary));
+  text-decoration-color: hsl(var(--primary) / 0.35);
+}
+
+#site-header.with-background {
+  border-color: hsl(var(--border) / 0.7);
+  color: hsl(var(--foreground));
+}
+
+#site-header.with-background .logo-text {
+  color: hsl(var(--foreground));
+}
+
+.ambient-particles {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-particle {
+  --particle-drift: 0px;
+  position: absolute;
+  top: -4vh;
+  opacity: 0;
+  animation: ambient-fall linear infinite;
+  will-change: transform, opacity;
+}
+
+.ambient-particles-sakura .ambient-particle {
+  border-radius: 70% 20% 70% 30%;
+  background: linear-gradient(145deg, rgba(236, 194, 225, 0.9), rgba(148, 163, 220, 0.72));
+  box-shadow: 0 0 10px rgba(148, 163, 220, 0.18);
+}
+
+.ambient-particles-snow .ambient-particle {
+  border: 1px solid rgba(210, 232, 255, 0.82);
+  border-radius: 50%;
+  background: rgba(239, 248, 255, 0.72);
+  box-shadow: 0 0 8px rgba(147, 197, 253, 0.28);
+}
+
+@keyframes ambient-fall {
+  0% { transform: translate3d(0, -5vh, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.65; }
+  85% { opacity: 0.5; }
+  100% { transform: translate3d(var(--particle-drift), 108vh, 0) rotate(420deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-particles { display: none; }
+}
+
+.water-splash-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.water-splash {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.water-splash::before,
+.water-splash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(86, 215, 255, 0.78);
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(86, 215, 255, 0.55), inset 0 0 18px rgba(86, 215, 255, 0.18);
+  animation: water-ring 0.82s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.water-splash::after {
+  border-color: rgba(113, 242, 180, 0.48);
+  animation-delay: 0.08s;
+}
+
+.water-drop {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.95), rgba(91, 213, 255, 0.82) 45%, rgba(91, 213, 255, 0));
+  box-shadow: 0 0 10px rgba(91, 213, 255, 0.55);
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(0);
+  animation: water-drop 0.78s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes water-ring {
+  0% { opacity: 0.95; transform: scale(0.3); }
+  100% { opacity: 0; transform: scale(8.5); }
+}
+
+@keyframes water-drop {
+  0% { opacity: 0.95; transform: translate(-50%, -50%) rotate(var(--a)) translateY(0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(var(--a)) translateY(var(--d)) scale(0.25); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .water-splash-layer { display: none; }
+}
+
+.interactive-life { display: flex; flex-direction: column; gap: 0.9rem; min-width: 0; scroll-margin-top: 6rem; }
+.after-hours-heading { scroll-margin-top: 6rem; }
+.interactive-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+.interactive-section-heading h2 { margin: 0; font-size: 1.45rem; letter-spacing: -0.025em; }
+.interactive-section-heading a, .after-hours-link { color: hsl(var(--muted-foreground)); font-size: 0.78rem; }
+.interactive-kicker { margin: 0 0 0.45rem; color: hsl(var(--primary)); font-size: 0.73rem; font-weight: 750; letter-spacing: 0.14em; text-transform: uppercase; }
+.coordinate-console { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr); gap: 0.85rem; }
+.interactive-map-panel, .coordinate-detail { padding: 1rem; border: 1px solid rgba(191, 219, 254, 0.26); border-radius: 1.05rem; background: linear-gradient(145deg, rgba(7, 17, 31, 0.58), rgba(8, 22, 42, 0.46)), url('/img/backgrounds/coordinates-night.jpg') center / cover no-repeat; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 16px 38px rgba(7, 17, 31, 0.16); }
+.interactive-map-shell { position: relative; overflow: hidden; min-height: 15rem; display: grid; place-items: center; border: 1px solid rgba(191, 219, 254, 0.24); border-radius: 0.85rem; background: rgba(5, 12, 24, 0.18); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); }
+.interactive-map-canvas { width: 100%; cursor: crosshair; }
+.interactive-map-canvas img, .interactive-map-canvas svg { display: block; width: 100%; height: auto; }
+.interactive-map-canvas svg path { fill: rgba(226, 232, 240, 0.38); stroke: rgba(226, 232, 240, 0.5); stroke-width: 0.45; transition: fill 0.2s ease, stroke 0.2s ease, filter 0.2s ease; }
+.interactive-map-canvas svg .visited-country { fill: rgba(96, 165, 250, 0.58); stroke: rgba(191, 219, 254, 0.95); stroke-width: 0.9; cursor: pointer; }
+.interactive-map-canvas svg .visited-country:hover { fill: hsl(var(--primary) / 0.58); }
+.interactive-map-canvas svg .active-country { fill: hsl(174 62% 52%); stroke: hsl(var(--foreground)); stroke-width: 1.25; filter: drop-shadow(0 0 5px hsl(174 62% 52% / 0.65)); }
+.interactive-map-marker { --marker-x: 50%; --marker-y: 50%; position: absolute; left: var(--marker-x); top: var(--marker-y); z-index: 2; padding: 0.28rem 0.55rem; border: 1px solid hsl(174 62% 65% / 0.8); border-radius: 999px; color: hsl(var(--foreground)); background: hsl(var(--card) / 0.9); box-shadow: 0 0 0 6px hsl(174 62% 52% / 0.11), 0 8px 24px hsl(var(--foreground) / 0.12); font-size: 0.65rem; font-weight: 800; transform: translate(-50%, -50%); transition: left 0.28s ease, top 0.28s ease; pointer-events: none; }
+.interactive-map-status { margin: 0.65rem 0 0; color: rgba(226, 232, 240, 0.78); font-size: 0.7rem; }
+.coordinate-detail { display: flex; flex-direction: column; gap: 1rem; }
+.coordinate-detail-head { display: flex; align-items: start; justify-content: space-between; gap: 1rem; }
+.coordinate-detail-head h3 { margin: 0 0 0.2rem; color: rgba(248, 250, 252, 0.96); font-size: 1rem; }
+.coordinate-detail-head p { margin: 0; color: rgba(226, 232, 240, 0.72); font-size: 0.72rem; }
+.coordinate-detail-head > strong { min-width: 4.25rem; padding: 0.55rem; border: 1px solid hsl(174 62% 52% / 0.35); border-radius: 0.75rem; color: hsl(var(--muted-foreground)); background: hsl(174 62% 52% / 0.07); text-align: center; font-size: 0.62rem; }
+.coordinate-detail-head b { display: block; color: hsl(174 62% 44%); font-size: 1.35rem; line-height: 1; }
+.country-switcher { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.country-switcher button { padding: 0.32rem 0.56rem; border: 1px solid rgba(226, 232, 240, 0.18); border-radius: 999px; color: rgba(226, 232, 240, 0.74); background: rgba(15, 23, 42, 0.44); font-size: 0.66rem; cursor: pointer; backdrop-filter: blur(8px); }
+.country-switcher button:hover, .country-switcher button.is-active { border-color: hsl(var(--primary) / 0.5); color: hsl(var(--primary)); background: hsl(var(--primary) / 0.1); }
+.coordinate-postcard { margin-top: auto; padding: 1rem; border-left: 2px solid hsl(var(--primary) / 0.6); border-radius: 0 0.75rem 0.75rem 0; background: rgba(15, 23, 42, 0.52); backdrop-filter: blur(10px); }
+.coordinate-postcard small { color: hsl(var(--primary)); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em; }
+.coordinate-postcard p { margin: 0.55rem 0 0; color: rgba(226, 232, 240, 0.8); font-size: 0.76rem; line-height: 1.7; }
+.after-hours-heading { margin-top: 1.4rem; }
+.game-controls { display: flex; gap: 0.4rem; }
+.game-controls button { width: 2rem; height: 2rem; border: 1px solid hsl(var(--border)); border-radius: 50%; color: hsl(var(--foreground)); background: hsl(var(--card) / 0.8); cursor: pointer; }
+.game-controls button:hover { border-color: hsl(var(--primary) / 0.55); color: hsl(var(--primary)); }
+.game-track { display: flex; gap: 0.75rem; overflow-x: auto; padding: 0.15rem 0.1rem 0.75rem; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: hsl(var(--primary) / 0.5) transparent; }
+.game-card { --game-color-a: #526b91; --game-color-b: #7b6f96; position: relative; flex: 0 0 14rem; min-height: 19rem; overflow: hidden; display: flex; flex-direction: column; border: 1px solid hsl(var(--border) / 0.72); border-radius: 1.15rem; color: hsl(var(--foreground)); background: hsl(var(--card) / 0.9); box-shadow: 0 10px 26px hsl(var(--foreground) / 0.075); scroll-snap-align: start; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.game-card:hover { transform: translateY(-4px); box-shadow: 0 18px 38px hsl(var(--foreground) / 0.13); }
+.game-cover { position: relative; height: 10.8rem; overflow: hidden; display: grid; place-items: center; background: linear-gradient(145deg, color-mix(in srgb, var(--game-color-a) 22%, #eef4f8), color-mix(in srgb, var(--game-color-b) 18%, #fff)); }
+.game-cover img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.45s ease; }
+.game-card:hover .game-cover img { transform: scale(1.04); }
+.game-cover::after { content: ''; position: absolute; inset: auto 0 0; height: 3.2rem; background: linear-gradient(to bottom, transparent, hsl(var(--card) / 0.45)); pointer-events: none; }
+.game-number { position: absolute; top: 0.65rem; right: 0.65rem; z-index: 2; display: grid; place-items: center; width: 2rem; height: 2rem; border: 1px solid rgba(255, 255, 255, 0.75); border-radius: 50%; color: #26384b; background: rgba(255, 255, 255, 0.72); box-shadow: 0 6px 18px rgba(34, 53, 72, 0.12); backdrop-filter: blur(10px); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; }
+.game-symbol { position: relative; width: 100%; height: 100%; display: grid; place-items: center; color: white; background: linear-gradient(145deg, var(--game-color-a), var(--game-color-b)); }
+.game-symbol > span { position: relative; z-index: 1; font-size: 4.5rem; line-height: 1; text-shadow: 0 8px 25px rgba(20, 35, 50, 0.22); }
+.game-symbol i { position: absolute; width: 5.5rem; height: 7.5rem; border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 0.75rem; background: rgba(255, 255, 255, 0.09); transform: rotate(-14deg) translateX(-1.4rem); }
+.game-symbol i:nth-of-type(2) { transform: rotate(0deg); }
+.game-symbol i:nth-of-type(3) { transform: rotate(14deg) translateX(1.4rem); }
+.game-card-body { position: relative; z-index: 2; flex: 1; margin-top: -0.8rem; padding: 0.95rem 1rem 1rem; border-top: 1px solid hsl(var(--background) / 0.75); border-radius: 1rem 1rem 0 0; background: hsl(var(--card) / 0.78); backdrop-filter: blur(16px) saturate(1.2); }
+.game-card small { color: hsl(var(--primary)); font-size: 0.58rem; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; }
+.game-card h3 { margin: 0.18rem 0 0; color: hsl(var(--foreground)); font-size: 1rem; }
+.game-card p { margin: 0.6rem 0 0; color: hsl(var(--muted-foreground)); font-size: 0.68rem; line-height: 1.55; }
+.game-project-link { display: block; width: fit-content; margin-top: 0.65rem; color: hsl(var(--primary)); font-size: 0.65rem; font-weight: 750; text-decoration: underline; text-decoration-color: hsl(var(--primary) / 0.35); text-underline-offset: 0.2rem; }
+.sports-heading { margin-top: 1.4rem; scroll-margin-top: 6rem; }
+.sports-count { padding: 0.35rem 0.65rem; border: 1px solid hsl(var(--border)); border-radius: 999px; color: hsl(var(--muted-foreground)); background: hsl(var(--card) / 0.68); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.sports-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; padding: 0.9rem; border: 1px solid rgba(148, 163, 184, 0.18); border-radius: 1.35rem; background: radial-gradient(circle at 14% 0%, rgba(96, 165, 250, 0.16), transparent 34%), radial-gradient(circle at 100% 18%, rgba(168, 85, 247, 0.12), transparent 30%), linear-gradient(145deg, rgba(8, 18, 34, 0.96), rgba(12, 25, 45, 0.9)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 18px 46px rgba(7, 17, 31, 0.22); }
+.sport-card { --sport-color: 205 72% 56%; position: relative; min-height: 8.9rem; border-radius: 1.05rem; perspective: 900px; }
+.sport-card-inner { position: absolute; inset: 0; border-radius: inherit; transform-style: preserve-3d; transition: transform 0.58s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.sport-card:hover .sport-card-inner, .sport-card:focus-within .sport-card-inner { transform: rotateY(180deg); }
+.sport-card-face { position: absolute; inset: 0; overflow: hidden; display: grid; place-items: center; border: 1px solid hsl(var(--sport-color) / 0.28); border-radius: inherit; backface-visibility: hidden; background: radial-gradient(circle at 74% 18%, hsl(var(--sport-color) / 0.2), transparent 34%), linear-gradient(145deg, rgba(246, 250, 255, 0.94), rgba(218, 230, 244, 0.78)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.68), 0 10px 26px rgba(0,0,0,0.18); }
+.sport-card-face::after { content: ''; position: absolute; right: -2.7rem; bottom: -3.1rem; width: 8.5rem; height: 8.5rem; border: 1px solid hsl(var(--sport-color) / 0.28); border-radius: 999px; box-shadow: 0 0 0 1.15rem hsl(var(--sport-color) / 0.09), 0 0 0 2.25rem hsl(var(--sport-color) / 0.045); pointer-events: none; }
+.sport-card-back { padding: 1.1rem; transform: rotateY(180deg); text-align: center; background: radial-gradient(circle at 80% 20%, hsl(var(--sport-color) / 0.24), transparent 34%), linear-gradient(145deg, rgba(12, 24, 44, 0.98), rgba(5, 12, 24, 0.98)); }
+.sport-card-back strong { position: relative; z-index: 1; color: white; font-size: 1.15rem; letter-spacing: 0.04em; }
+.sport-card-back span:not(.sport-card-number) { position: relative; z-index: 1; margin-top: 0.35rem; color: rgba(255,255,255,0.74); font-size: 0.64rem; font-weight: 800; letter-spacing: 0.16em; }
+.sport-icon { position: relative; z-index: 1; display: grid; place-items: center; width: 6.2rem; height: 6.2rem; border-radius: 1.25rem; background: transparent; transition: transform 0.25s ease; }
+.sport-card:hover .sport-icon { transform: rotate(-2deg) scale(1.04); }
+.sport-icon img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 14px rgba(15, 23, 42, 0.2)); }
+.sport-card-number { position: absolute; z-index: 2; top: 0.68rem; left: 0.72rem; display: inline-grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 999px; color: white; background: hsl(var(--sport-color) / 0.2); box-shadow: 0 0 0 0.45rem hsl(var(--sport-color) / 0.08); font-size: 0.62rem; font-weight: 900; letter-spacing: 0.08em; }
+.sport-tone-sky { --sport-color: 202 76% 54%; }
+.sport-tone-violet { --sport-color: 260 58% 62%; }
+.sport-tone-lime { --sport-color: 87 52% 46%; }
+.sport-tone-rose { --sport-color: 348 65% 59%; }
+.sport-tone-ice { --sport-color: 190 72% 52%; }
+.sport-tone-cyan { --sport-color: 181 64% 43%; }
+.sport-tone-amber { --sport-color: 39 76% 53%; }
+.sport-tone-orange { --sport-color: 24 80% 55%; }
+.sport-tone-blue { --sport-color: 220 68% 59%; }
+.after-hours-link { align-self: end; }
+
+@media (max-width: 900px) {
+  .coordinate-console { grid-template-columns: 1fr; }
+  .sports-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .interactive-map-shell { min-height: 11rem; }
+  .interactive-map-marker { display: none; }
+  .game-card { flex-basis: 12.5rem; min-height: 18rem; }
+  .sports-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.35rem; padding: 0.5rem; }
+  .sport-card { min-height: 6.4rem; }
+  .sport-icon { width: 4rem; height: 4rem; border-radius: 0.9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive-map-marker, .interactive-map-canvas svg path, .game-track, .sport-card { transition: none; scroll-behavior: auto; }
+}
+
+@media (max-width: 768px) {
+  .research-panel { border-radius: 1.1rem; }
+  .shadow-box.bg-gradient-start,
+  .bg-gradient-start.shadow-box {
+    margin: 0.75rem;
+    border-radius: 1.1rem;
+  }
+  .ambient-particle:nth-child(even) { display: none; }
+}

@@ -24,7 +24,7 @@ export default function RandomPostList({ postsPool, count, locale }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <h2 className="font-semibold text-2xl text-foreground/80">{t('post.randomPosts')}</h2>
-      <div className="flex flex-col gap-2">
+      <div className="grid grid-cols-2 gap-2 md:grid-cols-1">
         {posts.map((post, index) => (
           <a
             key={post.slug}

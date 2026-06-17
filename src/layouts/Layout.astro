@@ -15,7 +15,8 @@ interface Props {
 import { ClientRouter } from 'astro:transitions';
 import AnnouncementProvider from '@components/announcement/AnnouncementProvider.astro';
 import GlobalBGMPlayer from '@components/bgm/GlobalBGMPlayer';
-import ChristmasEffects from '@components/christmas/ChristmasEffects.astro';
+import ParticleEffects from '@components/effects/ParticleEffects';
+import WaterSplashEffects from '@components/effects/WaterSplashEffects';
 import FloatingGroup from '@components/layout/FloatingGroup';
 import Header from '@components/layout/Header.astro';
 import MobileDrawer from '@components/layout/MobileDrawer.astro';
@@ -25,7 +26,7 @@ import CodeBlockFullscreen from '@components/markdown/CodeBlockFullscreen';
 import DiagramFullscreen from '@components/markdown/DiagramFullscreen';
 import ImageLightbox from '@components/markdown/ImageLightbox';
 import { Toaster } from '@components/ui/sonner';
-import { bgmConfig, christmasConfig, seoConfig, siteConfig } from '@constants/site-config';
+import { bgmConfig, seoConfig, siteConfig } from '@constants/site-config';
 import { getOgImageUrl } from '@lib/seo/og-image';
 import LoadingIndicator from 'astro-loading-indicator/component';
 import { SEO } from 'astro-seo';
@@ -37,7 +38,6 @@ import {
   getLocaleFromUrl,
   isI18nEnabled,
   localeList,
-  localizedPath,
   stripLocaleFromPath,
 } from '@/i18n';
 
@@ -65,7 +65,6 @@ const isPostPage = stripLocaleFromPath(Astro.url.pathname).startsWith('/post/');
 const ogImage = getOgImageUrl(post?.data.cover, Astro.site);
 
 // Pre-compute i18n URLs for <head> links
-const rssHref = new URL(localizedPath('/rss.xml', locale), Astro.site).href;
 const hreflangLinks = localeList.map((loc) => ({
   lang: getHtmlLang(loc),
   href: new URL(getAlternateUrl(Astro.url.pathname, loc), Astro.site).href,
@@ -97,7 +96,7 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
     )}
 
     <ClientRouter />
-    <LoadingIndicator color="#e9536a" />
+    <LoadingIndicator color="#4f86c6" />
     <Tooltips />
 
     <!-- SEO 元数据由 astro-seo 管理 -->
@@ -130,7 +129,6 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
     {/* astro-seo 暂不支持管理 keywords */}
     <meta name="keywords" content={keywords.join(', ')} />
 
-    <link rel="alternate" type="application/rss+xml" title={siteConfig.title} href={rssHref} />
     {/* hreflang alternate links for SEO — only output when multiple locales are configured */}
     {isI18nEnabled && hreflangLinks.map(({ lang, href }) => (
       <link rel="alternate" hreflang={lang} href={href} />
@@ -172,18 +170,12 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
         });
       })();
     </script>
-    <script is:inline define:vars={{ christmasFeatureEnabled: christmasConfig.enabled }}>
-      // 立即执行圣诞状态检查 否则彩灯等会闪烁
+    <script is:inline>
+      // Apply the saved ambient effect before hydration to avoid state flicker.
       (function () {
-        // 如果构建时配置关闭，则始终不启用
-        if (!christmasFeatureEnabled) {
-          document.documentElement.classList.remove('christmas');
-          return;
-        }
-        // 否则使用用户偏好
-        var stored = localStorage.getItem('christmas-enabled');
-        var enabled = stored !== 'false'; // 默认启用
-        document.documentElement.classList.toggle('christmas', enabled);
+        var stored = localStorage.getItem('ambient-particle-mode');
+        var mode = stored === 'sakura' || stored === 'snow' ? stored : 'off';
+        document.documentElement.dataset.particles = mode;
       })();
     </script>
 
@@ -341,7 +333,8 @@ const keywords = keywordsOverride || siteConfig.keywords || [siteConfig.title];
     </script>
   </head>
   <body>
-    <ChristmasEffects transition:persist="christmas-snowfall" />
+    <ParticleEffects client:only="react" />
+    <WaterSplashEffects client:only="react" />
     <div class="flex min-h-screen flex-col text-black dark:text-white">
       <Header isPostPage={isPostPage} tocNumbering={post?.data.tocNumbering ?? true} />
       <main class="relative flex grow flex-col gap-4">

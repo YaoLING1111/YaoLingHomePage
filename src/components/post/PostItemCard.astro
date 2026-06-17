@@ -76,7 +76,7 @@ const pageStatsConfig = createArticleStatsConfig(href);
 
 <div
   class={cn(
-    'hover:shadow-card-darker group text-card-foreground shadow-card relative flex rounded-lg bg-white transition-shadow md:flex-col dark:bg-transparent',
+    'group text-card-foreground relative flex overflow-hidden rounded-2xl border border-border/75 bg-card/88 shadow-[0_10px_28px_rgba(50,72,102,0.09)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_18px_40px_rgba(50,72,102,0.15)] md:flex-col',
     'post-item-card',
   )}
 >
@@ -87,8 +87,8 @@ const pageStatsConfig = createArticleStatsConfig(href);
         href={href}
         style={lqipProps.style}
         class={cn(
-          'md:clip-path-none relative h-46.5 max-h-46.5 w-[calc(50%-2rem)] overflow-hidden md:w-auto',
-          leftClip ? 'rounded-s-lg clip-path-post-img-left order-1' : 'rounded-e-lg clip-path-post-img-right order-2',
+          'relative h-48 max-h-48 w-[42%] overflow-hidden md:w-auto',
+          leftClip ? 'order-1' : 'order-2',
           'md:clip-path-none md:order-0',
           lqipProps.class,
         )}
@@ -97,18 +97,17 @@ const pageStatsConfig = createArticleStatsConfig(href);
           src={finalCover}
           loading="lazy"
           alt="post cover"
-          class="h-full w-full cursor-pointer object-cover transition duration-500 group-hover:scale-110 group-hover:rotate-3"
+          class="h-full w-full cursor-pointer object-cover transition duration-500 group-hover:scale-[1.035]"
         />
       </a>
     )
   }
   <div
     class={cn(
-      'flex flex-col gap-2 pb-2 md:pb-4 pt-4 md:pt-1',
-      'px-4 md:px-4',
+      'flex flex-col gap-3 px-5 py-5 md:px-4 md:py-4',
       // Reduce margin on the side adjacent to image diagonal when uniform left position
       isUniformPosition && !hideCover && leftClip && '-ml-3',
-      hideCover ? 'w-full' : 'w-[calc(50%+2rem)] md:w-full',
+      hideCover ? 'w-full' : 'w-[58%] md:w-full',
       !hideCover && (leftClip ? 'order-2' : 'order-1'),
       'md:order-0',
     )}
@@ -162,7 +161,7 @@ const pageStatsConfig = createArticleStatsConfig(href);
     <div class={cn('mt-1 flex flex-col space-y-1.5 p-0', getStaggerPadding(1), 'md:pl-0 md:pr-0')}>
       <div class="flex items-center gap-2">
         <a href={href} aria-label="post-link" class="min-w-0 flex-1"
-          ><h2 class="text-primary hover:text-blue line-clamp-1 truncate text-xl font-bold transition-colors duration-300">
+          ><h2 class="text-foreground hover:text-primary line-clamp-2 text-xl font-bold leading-snug transition-colors duration-300">
             {title}
           </h2>
         </a>
@@ -186,7 +185,7 @@ const pageStatsConfig = createArticleStatsConfig(href);
     </div>
     <p
       class={cn(
-        'text-muted-foreground line-clamp-3 h-15 text-sm md:h-auto md:max-h-15',
+        'text-muted-foreground line-clamp-3 h-auto text-sm leading-6',
         { 'line-clamp-2 h-10 md:max-h-10': isSimple },
         getStaggerPadding(2),
         'md:pl-0 md:pr-0',
@@ -228,7 +227,7 @@ const pageStatsConfig = createArticleStatsConfig(href);
     >
       <Button
         className={cn(
-          'bg-gradient-shoka-button rounded-2xl transition-all hover:translate-y-1 hover:scale-105 md:h-7 md:px-2 md:py-1 md:text-xs',
+          'border-primary/20 bg-primary/10 text-primary rounded-xl border shadow-none transition-all hover:bg-primary hover:text-white md:h-7 md:px-2 md:py-1 md:text-xs',
           hideCover
             ? 'rounded-se-none rounded-es-none hover:translate-x-1'
             : leftClip
@@ -237,7 +236,7 @@ const pageStatsConfig = createArticleStatsConfig(href);
           'md:rounded-ss-2xl md:rounded-se-none md:rounded-ee-2xl md:rounded-es-none md:hover:translate-x-1',
         )}
       >
-        more...
+        Read
       </Button>
     </a>
   </div>

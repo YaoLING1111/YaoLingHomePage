@@ -1,0 +1,753 @@
+---
+import InteractiveLifePanels from './InteractiveLifePanels';
+
+const researchRoutes = [
+  {
+    period: 'Feb 2025 - Present',
+    meta: 'IWIN-FINS Lab · Chun-Tsung Program',
+    title: 'CASO: Chebyshev-Accelerated Surrogate Optimization',
+    description:
+      '面向稀疏多智能体网络，用 Chebyshev surrogate、加速系数共识和可验证停止规则降低非凸优化中的通信成本。',
+    href: '/post/distributed-optimization-chebyshev/',
+  },
+  {
+    period: 'Nov 2025 - Jan 2026',
+    meta: 'KTH EL2320 · Unity Simulation',
+    title: 'UAV Localization in Unity: EKF, PF and Hybrid Estimation',
+    description:
+      '在自动化 Unity 仿真中比较 EKF、Particle Filter/MCL 与 Hybrid EKF-PF，重点测试 kidnapped scenario 下的恢复能力。',
+    href: '/post/uav-state-estimation-paradigms/',
+  },
+];
+
+const projects = [
+  {
+    label: 'Autonomous Systems',
+    title: 'Space Robotics Sand Rover at Tohoku University',
+    description: 'TESP 2024 暑研项目：集成 RealSense、ROS、ArUco、YOLOv8、OpenCV、A* 与 PD 控制的沙地移动机器人。',
+    href: '/post/autonomous-rover-ros-yolov8-astar/',
+    cover: '/img/projects/provided/japan-summer-rover.png',
+    accent: 'blue',
+  },
+  {
+    label: 'Hardware & Control',
+    title: 'RoboMaster Hardware and Control Practice',
+    description: '从硬件调试到运动控制的工程实践，获 2023 年校内赛事一等奖。',
+    href: '/post/robomaster-hardware-control/',
+    cover: '/img/projects/robomaster/cover.png',
+    accent: 'cyan',
+  },
+  {
+    label: 'Modeling & Teaching',
+    title: 'Mathematical Modeling and TA Work',
+    description: 'MCM 2024 Honorable Mention，并于 2025 年获评优秀助教。',
+    href: '/post/mathematical-modeling-ta/',
+    cover: '/img/projects/provided/math-modeling-cover.png',
+    accent: 'gold',
+  },
+  {
+    label: 'Realtime Web Game',
+    title: 'Cheese Game: Multiplayer Social Deduction Online',
+    description: '将“奶酪大盗”的身份、夜间行动与投票流程实现为 Express + Socket.IO 多人实时网页游戏。',
+    href: '/post/cheese-game-multiplayer/',
+    cover: '/img/projects/cheese-game.webp',
+    accent: 'violet',
+  },
+];
+
+const skillGroups = [
+  ['Robotics & Control', 'ROS · Motion Planning · PID · RoboMaster', '/img/backgrounds/technical-skill-01.jpg'],
+  ['Estimation & Optimization', 'State Estimation · EKF · Particle Filter · Chebyshev Approx.', '/img/backgrounds/technical-skill-02.jpg'],
+  ['Vision & AI', 'PyTorch · OpenCV · YOLOv8 · Diffusion Models', '/img/backgrounds/technical-skill-03.jpg'],
+  ['Programming', 'C++ · Python · MATLAB · C# · Node.js', '/img/backgrounds/technical-skill-04.jpg'],
+];
+---
+
+<div class="personal-home">
+  <section class="profile-intro" aria-labelledby="profile-title">
+    <div class="profile-copy">
+      <p class="section-kicker">Research Profile · Yao Ling</p>
+      <h1 id="profile-title">机器人估计、优化与感知</h1>
+      <p class="profile-lead">
+        上海交通大学感知科学与工程本科生，KTH Computer Science 交换生。关注多机器人分布式优化、无人机状态估计与自主移动机器人系统。
+      </p>
+      <div class="profile-actions">
+        <a class="primary-action" href="#research-route">Explore Research</a>
+        <a href="#visited-coordinates">Interactive Map</a>
+        <a href="#board-game-deck">Board Game Deck</a>
+        <a href="/about">About Me</a>
+        <a href="/cv.pdf">View CV</a>
+      </div>
+    </div>
+
+    <div class="profile-facts" aria-label="Profile summary">
+      <div><strong>2</strong><span>Research Tracks</span></div>
+      <div><strong>4+</strong><span>Core Projects</span></div>
+      <div><strong>11</strong><span>Visited Coordinates</span></div>
+    </div>
+
+    <div class="keyword-row" aria-label="Research keywords">
+      <span>Robotics</span><span>State Estimation</span><span>Distributed Optimization</span><span>Vision & AI</span>
+    </div>
+    <p class="education-line">SJTU IntelliSense · 2023-2027 <i></i> KTH Computer Science · 2025 Exchange</p>
+  </section>
+
+  <section id="research-route" class="home-section" aria-labelledby="research-heading">
+    <header class="section-heading">
+      <div><p class="section-kicker">Current Focus</p><h2 id="research-heading">Research Route</h2></div>
+      <a href="/categories/research/">Research notes <span aria-hidden="true">→</span></a>
+    </header>
+    <div class="research-grid">
+      {researchRoutes.map((item, index) => (
+        <a class={`research-card research-card-${index + 1}`} href={item.href}>
+          <div class="research-ripples" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="route-index">0{index + 1}</div>
+          <div class="research-card-content">
+            <p class="card-meta">{item.period}</p>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <span class="card-foot">{item.meta}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="projects-heading">
+    <header class="section-heading">
+      <div><p class="section-kicker">Selected Work</p><h2 id="projects-heading">Projects</h2></div>
+    </header>
+    <div class="project-grid">
+      {projects.map((project, index) => (
+        <a class={`project-card project-accent-${project.accent}`} href={project.href}>
+          <div class="project-visual" style={`--project-cover: url('${project.cover}');`}>
+            <img src={project.cover} alt="" loading="lazy" />
+            <span class="project-index">0{index + 1}</span>
+          </div>
+          <div class="project-glass">
+            <p class="card-meta">{project.label}</p>
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            <span>Read project <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <InteractiveLifePanels client:load />
+
+  <section class="home-section" aria-labelledby="skills-heading">
+    <header class="section-heading">
+      <div><p class="section-kicker">Toolbox</p><h2 id="skills-heading">Technical Skills</h2></div>
+    </header>
+    <div class="skills-grid">
+      {skillGroups.map(([title, skills, background]) => (
+        <div class="skill-card" style={`--skill-bg: url('${background}');`}>
+          <h3>{title}</h3>
+          <p>{skills}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</div>
+
+<style>
+  .personal-home {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .profile-intro,
+  .skill-card {
+    border: 1px solid hsl(var(--border) / 0.82);
+  }
+
+  .profile-intro {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(1.35rem, 3vw, 2.4rem);
+    border-radius: 1.4rem;
+    color: white;
+    background:
+      linear-gradient(90deg, rgba(7, 16, 34, 0.82), rgba(10, 24, 48, 0.5) 48%, rgba(10, 24, 48, 0.28)),
+      url('/img/home/hero-background.png') center / cover no-repeat;
+    box-shadow: 0 20px 48px rgba(11, 28, 54, 0.22);
+  }
+
+  .profile-intro::after {
+    content: '';
+    position: absolute;
+    width: 18rem;
+    height: 18rem;
+    right: -7rem;
+    top: -9rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 235, 178, 0.22), transparent 68%);
+    pointer-events: none;
+  }
+
+  .profile-intro :is(h1, h2, h3),
+  .profile-intro .profile-lead,
+  .profile-intro .education-line,
+  .profile-intro .profile-facts span {
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  .profile-intro .section-kicker,
+  .profile-intro .keyword-row span {
+    color: #f6d88e;
+  }
+
+  .profile-intro .profile-actions a,
+  .profile-intro .profile-facts div {
+    border-color: rgba(255, 255, 255, 0.24);
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(14px);
+  }
+
+  .profile-intro .profile-actions .primary-action {
+    color: #101827;
+    background: rgba(255, 225, 150, 0.92);
+    border-color: rgba(255, 225, 150, 0.98);
+  }
+
+  .profile-intro .keyword-row span {
+    background: rgba(255, 225, 150, 0.12);
+    border-color: rgba(255, 225, 150, 0.24);
+  }
+
+  .profile-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+  }
+
+  .section-kicker {
+    margin: 0 0 0.45rem;
+    color: hsl(var(--primary));
+    font-size: 0.73rem;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+  }
+
+  h2 {
+    margin-bottom: 0;
+    font-size: 1.45rem;
+    letter-spacing: -0.025em;
+  }
+
+  h3 {
+    color: hsl(var(--foreground));
+  }
+
+  .profile-lead {
+    max-width: 45rem;
+    color: hsl(var(--muted-foreground));
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .profile-actions,
+  .keyword-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .profile-actions {
+    margin-top: 1.25rem;
+  }
+
+  .profile-actions a {
+    padding: 0.62rem 0.95rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: 999px;
+    color: hsl(var(--foreground));
+    font-size: 0.84rem;
+    font-weight: 650;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .profile-actions a:hover {
+    transform: translateY(-2px);
+    border-color: hsl(var(--primary) / 0.65);
+  }
+
+  .profile-actions .primary-action {
+    color: hsl(var(--primary-foreground));
+    background: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+  }
+
+  .profile-facts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 34rem;
+    gap: 0.65rem;
+    margin-top: 1.6rem;
+  }
+
+  .profile-facts div {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0.9rem;
+    border-left: 2px solid hsl(var(--primary) / 0.55);
+    background: hsl(var(--muted) / 0.46);
+    border-radius: 0 0.7rem 0.7rem 0;
+  }
+
+  .profile-facts strong {
+    font-size: 1.25rem;
+  }
+
+  .profile-facts span,
+  .education-line {
+    color: hsl(var(--muted-foreground));
+    font-size: 0.72rem;
+  }
+
+  .keyword-row {
+    margin-top: 1.35rem;
+    gap: 0.45rem;
+  }
+
+  .keyword-row span {
+    padding: 0.35rem 0.65rem;
+    color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.09);
+    border: 1px solid hsl(var(--primary) / 0.16);
+    border-radius: 999px;
+    font-size: 0.72rem;
+  }
+
+  .education-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 1rem 0 0;
+  }
+
+  .education-line i {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: hsl(var(--primary));
+  }
+
+  .home-section {
+    scroll-margin-top: 6rem;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .section-heading a {
+    color: hsl(var(--muted-foreground));
+    font-size: 0.78rem;
+  }
+
+  .research-grid,
+  .project-grid,
+  .skills-grid {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .research-card {
+    --research-a: 218 58% 55%;
+    --research-b: 263 45% 61%;
+    --research-bg: url('/img/backgrounds/research-route-01.jpg');
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 15rem;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.35rem;
+    border: 1px solid hsl(var(--research-a) / 0.3);
+    border-radius: 1.05rem;
+    color: white;
+    background:
+      linear-gradient(135deg, hsl(var(--research-a) / 0.78), hsl(var(--research-b) / 0.54)),
+      var(--research-bg) center / cover no-repeat;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 14px 32px hsl(var(--research-a) / 0.18);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .research-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.22), transparent 34%),
+      linear-gradient(155deg, rgba(255, 255, 255, 0.1), rgba(5, 12, 28, 0.22) 58%, rgba(5, 12, 28, 0.5));
+  }
+
+  .research-card-2 {
+    --research-a: 190 62% 45%;
+    --research-b: 218 58% 55%;
+    --research-bg: url('/img/backgrounds/research-route-02.jpg');
+  }
+
+  .research-card:hover,
+  .project-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .route-index {
+    position: absolute;
+    right: 1rem;
+    top: 0.8rem;
+    z-index: 3;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 2.2rem;
+    font-weight: 800;
+  }
+
+  .research-ripples {
+    position: absolute;
+    right: -3.8rem;
+    bottom: -4.5rem;
+    z-index: 0;
+    width: 13rem;
+    height: 13rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .research-ripples i {
+    position: absolute;
+    inset: 1.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+  }
+
+  .research-ripples i:nth-child(2) {
+    inset: 3.3rem;
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  .research-ripples i:nth-child(3) {
+    inset: 5rem;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .research-card-content {
+    position: relative;
+    z-index: 2;
+    max-width: 88%;
+  }
+
+  .card-meta {
+    margin-bottom: 0.65rem;
+    color: hsl(var(--primary));
+    font-size: 0.69rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .research-card .card-meta,
+  .card-foot {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .research-card h3 {
+    max-width: 95%;
+    margin-bottom: 0.65rem;
+    color: white;
+    font-size: 1.08rem;
+    line-height: 1.45;
+  }
+
+  .research-card-content > p:not(.card-meta) {
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  .card-foot {
+    font-size: 0.7rem;
+    font-weight: 650;
+  }
+
+  .project-card {
+    --project-accent: 210 70% 58%;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    min-height: 20rem;
+    padding: 0.75rem;
+    border: 1px solid hsl(var(--border) / 0.7);
+    border-radius: 1.2rem;
+    color: hsl(var(--foreground));
+    background: hsl(var(--muted) / 0.28);
+    box-shadow: 0 12px 30px hsl(var(--foreground) / 0.07);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .project-card:hover {
+    border-color: hsl(var(--primary) / 0.45);
+    box-shadow: 0 16px 36px hsl(var(--foreground) / 0.1);
+  }
+
+  .project-visual {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: hsl(var(--muted) / 0.36);
+  }
+
+  .project-visual::before {
+    content: '';
+    position: absolute;
+    inset: -1.2rem;
+    background: var(--project-cover) center / cover no-repeat;
+    filter: blur(18px) saturate(1.06);
+    opacity: 0.42;
+    transform: scale(1.04);
+  }
+
+  .project-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 22%, hsl(var(--background) / 0.08) 50%, hsl(var(--background) / 0.55) 100%);
+  }
+
+  .project-visual img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: clamp(0.55rem, 2.4vw, 1.15rem);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(232, 240, 248, 0.28));
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .project-card:hover .project-visual img {
+    transform: scale(1.045);
+  }
+
+  .project-index {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.9rem;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 50%;
+    color: #24364a;
+    background: rgba(255, 255, 255, 0.62);
+    box-shadow: 0 8px 22px rgba(31, 49, 72, 0.1);
+    backdrop-filter: blur(12px);
+    font-size: 0.65rem;
+    font-weight: 800;
+  }
+
+  .project-glass {
+    width: 100%;
+    padding: 1rem 1.05rem;
+    border: 1px solid hsl(var(--background) / 0.72);
+    border-radius: 1rem;
+    background: hsl(var(--card) / 0.72);
+    box-shadow: 0 12px 35px hsl(var(--foreground) / 0.1);
+    backdrop-filter: blur(18px) saturate(1.25);
+  }
+
+  .project-glass::before {
+    content: '';
+    display: block;
+    width: 2.6rem;
+    height: 2px;
+    margin-bottom: 0.7rem;
+    border-radius: 999px;
+    background: hsl(var(--project-accent));
+  }
+
+  .project-glass h3 {
+    max-width: 95%;
+    margin-bottom: 0.5rem;
+    color: hsl(var(--foreground));
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .project-glass > p:not(.card-meta) {
+    margin-bottom: 0.7rem;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.76rem;
+    line-height: 1.6;
+  }
+
+  .project-glass > span {
+    color: hsl(var(--project-accent));
+    font-size: 0.7rem;
+    font-weight: 750;
+  }
+
+  .project-accent-cyan {
+    --project-accent: 185 61% 45%;
+  }
+
+  .project-accent-gold {
+    --project-accent: 39 72% 50%;
+  }
+
+  .project-accent-violet {
+    --project-accent: 262 54% 62%;
+  }
+
+  .skill-card {
+    position: relative;
+    overflow: hidden;
+    padding: 1rem 1.1rem;
+    border-radius: 0.9rem;
+    color: white;
+    background:
+      linear-gradient(135deg, rgba(7, 17, 31, 0.72), rgba(9, 24, 49, 0.48)),
+      var(--skill-bg) center / cover no-repeat;
+    box-shadow: 0 14px 30px rgba(7, 17, 31, 0.14);
+  }
+
+  .skill-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255, 230, 164, 0.18), transparent 34%),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08), transparent 36%);
+    pointer-events: none;
+  }
+
+  .skill-card h3 {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0.35rem;
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 0.85rem;
+  }
+
+  .skill-card p {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+
+  :global(html:not(.dark)) .profile-intro {
+    color: hsl(var(--foreground));
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.86), rgba(248, 250, 252, 0.72) 48%, rgba(248, 250, 252, 0.5)),
+      url('/img/home/hero-background.png') center / cover no-repeat;
+    box-shadow: 0 20px 48px rgba(31, 49, 72, 0.12);
+  }
+
+  :global(html:not(.dark)) .profile-intro :is(h1, h2, h3),
+  :global(html:not(.dark)) .profile-intro .profile-lead,
+  :global(html:not(.dark)) .profile-intro .education-line,
+  :global(html:not(.dark)) .profile-intro .profile-facts span {
+    color: hsl(var(--foreground) / 0.82);
+  }
+
+  :global(html:not(.dark)) .profile-intro .section-kicker,
+  :global(html:not(.dark)) .profile-intro .keyword-row span {
+    color: hsl(var(--primary));
+  }
+
+  :global(html:not(.dark)) .profile-intro .profile-actions a,
+  :global(html:not(.dark)) .profile-intro .profile-facts div {
+    border-color: hsl(var(--border) / 0.74);
+    color: hsl(var(--foreground) / 0.86);
+    background: rgba(255, 255, 255, 0.58);
+  }
+
+  :global(html:not(.dark)) .profile-intro .profile-actions .primary-action {
+    color: hsl(var(--primary-foreground));
+    background: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+  }
+
+  :global(html:not(.dark)) .skill-card {
+    color: hsl(var(--foreground));
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(248, 250, 252, 0.58)),
+      var(--skill-bg) center / cover no-repeat;
+    box-shadow: 0 14px 30px rgba(31, 49, 72, 0.1);
+  }
+
+  :global(html:not(.dark)) .skill-card h3 {
+    color: hsl(var(--foreground) / 0.9);
+  }
+
+  :global(html:not(.dark)) .skill-card p {
+    color: hsl(var(--muted-foreground));
+  }
+
+  :global(.dark) .profile-intro {
+    color: white;
+    background:
+      linear-gradient(90deg, rgba(7, 16, 34, 0.82), rgba(10, 24, 48, 0.5) 48%, rgba(10, 24, 48, 0.28)),
+      url('/img/home/hero-background.png') center / cover no-repeat;
+  }
+
+  :global(.dark) .skill-card {
+    color: white;
+    background:
+      linear-gradient(135deg, rgba(7, 17, 31, 0.72), rgba(9, 24, 49, 0.48)),
+      var(--skill-bg) center / cover no-repeat;
+  }
+
+  @media (max-width: 760px) {
+    .profile-facts,
+    .research-grid,
+    .project-grid,
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

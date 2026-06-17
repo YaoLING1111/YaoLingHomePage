@@ -92,14 +92,14 @@ export function getPostDescriptionWithSummary(post: BlogPost, locale: string = d
 
 /**
  * Get all posts sorted by date (newest first)
- * In production, draft posts are filtered out
+ * Draft posts are filtered out in both development and production for this site.
  * @param locale Optional locale filter — undefined returns all, 'zh' returns default only, 'en' returns en + fallback
  */
 export async function getSortedPosts(locale?: string): Promise<CollectionEntry<'blog'>[]> {
   return memoize('sortedPosts', locale ?? '__all__', async () => {
     const posts = await getCollection('blog', ({ data }) => {
       // 在生产环境中，过滤掉草稿
-      return import.meta.env.PROD ? data.draft !== true : true;
+      return data.draft !== true;
     });
 
     // 使用浅拷贝避免原地修改 Astro 内部缓存的数组
