@@ -19,7 +19,7 @@ site:
   avatar: /img/personal_photo.JPG # 网站头像
   showLogo: false # 使用克制的文字 Logo
   author: Yao Ling # 作者名称 - 请修改为你的名字
-  url: https://yaoling-homepage.vercel.app # 站点 URL 用于 SEO
+  url: https://yao-ling-home-page.vercel.app # 站点 URL 用于 SEO
   defaultOgImage: /img/personal_photo.JPG # 默认 Open Graph 图片
   startYear: 2024 # 建站年份
   timezone: Asia/Shanghai # 时区配置 (IANA 格式)，用于日期显示和处理
