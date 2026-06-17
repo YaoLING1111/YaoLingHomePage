@@ -12,17 +12,17 @@ type Country = {
 };
 
 const countries: Country[] = [
-  { id: 'cn', selector: '.China, #TW', name: '中国', en: 'China', region: '东亚', x: 78.4, y: 35.6, note: '主页原点：上海交通大学，也是研究路线的起点。' },
-  { id: 'jp', selector: '.Japan', name: '日本', en: 'Japan', region: '东亚', x: 85.8, y: 31.8, note: '仙台暑期工程项目：ROS 小车、YOLOv8 与 A*，把旅行变成机器人系统现场。' },
-  { id: 'th', selector: '#TH', name: '泰国', en: 'Thailand', region: '东南亚', x: 76.8, y: 48.2, note: '热带坐标，给高密度学习和项目周期之间留一点充电时间。' },
-  { id: 'se', selector: '#SE', name: '瑞典', en: 'Sweden', region: '欧洲', x: 52.9, y: 17.8, note: 'Stockholm / KTH：交换学期，把机器人、估计和北欧冬天一起装进行李箱。' },
-  { id: 'fi', selector: '#FI', name: '芬兰', en: 'Finland', region: '欧洲', x: 55.1, y: 16.2, note: '北欧第二盏灯：安静、清冷、有秩序，适合写代码和想模型。' },
-  { id: 'fr', selector: '.France', name: '法国', en: 'France', region: '欧洲', x: 50.5, y: 27.2, note: '艺术、城市和漫游感，给理工脑补一点颜色。' },
-  { id: 'de', selector: '#DE', name: '德国', en: 'Germany', region: '欧洲', x: 52, y: 24.2, note: '精密感坐标：控制、工程和系统感在这里意外同频。' },
-  { id: 'at', selector: '#AT', name: '奥地利', en: 'Austria', region: '欧洲', x: 52.8, y: 27.3, note: '音乐和山之间的一站，适合把时间调成慢速。' },
-  { id: 'ro', selector: '#RO', name: '罗马尼亚', en: 'Romania', region: '欧洲', x: 55.2, y: 29, note: '东欧印章：地图上不那么喧哗，但很容易被记住。' },
-  { id: 'es', selector: '#ES', name: '西班牙', en: 'Spain', region: '欧洲', x: 48.5, y: 32, note: '阳光、广场和晚一点开始的生活。' },
-  { id: 'pt', selector: '#PT', name: '葡萄牙', en: 'Portugal', region: '欧洲', x: 46.6, y: 32.4, note: '欧洲西侧的边界感，像地图翻页前的一枚句号。' },
+  { id: 'cn', selector: '.China, #TW', name: '中国', en: 'China', region: '东亚', x: 78.4, y: 35.6, note: '主页原点。生于此，长于此。' },
+  { id: 'jp', selector: '.Japan', name: '日本', en: 'Japan', region: '东亚', x: 85.8, y: 31.8, note: '仙台的夏。在鲁迅跟随藤野先生学习的学校度过暑研。' },
+  { id: 'th', selector: '#TH', name: '泰国', en: 'Thailand', region: '东南亚', x: 76.8, y: 48.2, note: '第一次出国。记忆里的榴莲和山竹碰撞出东南亚的夏天。' },
+  { id: 'se', selector: '#SE', name: '瑞典', en: 'Sweden', region: '欧洲', x: 52.9, y: 17.8, note: '斯京的教堂钟声还在回荡。宫崎骏动画里的城市。漫天白雪里我看见自己的灵魂。' },
+  { id: 'fi', selector: '#FI', name: '芬兰', en: 'Finland', region: '欧洲', x: 55.1, y: 16.2, note: '坐船从斯京出发，去赫尔辛基。小小的城市，清冷的气质。' },
+  { id: 'fr', selector: '.France', name: '法国', en: 'France', region: '欧洲', x: 50.5, y: 27.2, note: '从卢浮宫到巴黎圣母院，从凯旋门到塞纳河游船。太多的名胜。一直想要去的地方，浪漫于艺术是心底的召唤。' },
+  { id: 'de', selector: '#DE', name: '德国', en: 'Germany', region: '欧洲', x: 52, y: 24.2, note: '严肃与荒共存。随处可见的涂鸦，从柏林墙一直挤到旅馆电梯墙上。' },
+  { id: 'at', selector: '#AT', name: '奥地利', en: 'Austria', region: '欧洲', x: 52.8, y: 27.3, note: '马车缓缓驶过茜茜公主的城堡。维也纳用音乐和艺术，将它的痛苦抚平。' },
+  { id: 'ro', selector: '#RO', name: '罗马尼亚', en: 'Romania', region: '欧洲', x: 55.2, y: 29, note: '东欧小城。仿佛回到故乡的乡间。教堂，修道院，博物馆，街头耍杂卖艺的人们。' },
+  { id: 'es', selector: '#ES', name: '西班牙', en: 'Spain', region: '欧洲', x: 48.5, y: 32, note: '阳光、海滩，日出。受够了漫长黑夜的北欧居民，总念叨的度假圣地。建筑学者必须朝圣的地方。海鲜饭也甚是美味。' },
+  { id: 'pt', selector: '#PT', name: '葡萄牙', en: 'Portugal', region: '欧洲', x: 46.6, y: 32.4, note: '带轨的黄色电车。里斯本的Hippotrip，从岸上一直开到水中。' },
 ];
 
 const games = [

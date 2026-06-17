@@ -24,8 +24,7 @@ site:
   startYear: 2026 # 建站年份
   timezone: Asia/Shanghai # 时区配置 (IANA 格式)，用于日期显示和处理
   keywords: # SEO 关键词 (全局)
-    - Robotics
-    - State Estimation
+    - Robotics/Autonomous Systems
     - Distributed Optimization
     - Multi-Sensor Fusion
     - Secure Control Theory
