@@ -1,0 +1,344 @@
+---
+import ConditionResults from './ConditionResults.astro';
+import DemoGallery from './DemoGallery.astro';
+import { bibtex, datasets, planners, project, sensorNames, sensors } from './radar2plan-data';
+import { adverse, fusion, sensing, standalone } from './radar2plan-demos';
+import './radar2plan.css';
+const asset = '/research/radar2plan/';
+const canonical = new URL('/radar2plan/', Astro.site ?? Astro.url.origin).href;
+const description =
+  'Does the sensing robustness of 4D radar benefit downstream planning? Radar2Plan is a modular benchmark for open-loop ego-trajectory planning using real-world 4D radar data.';
+const initial = datasets[0];
+const initialPlanner = 1;
+const chartMax = Math.ceil(Math.max(...initial.values.flat()));
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#171916" />
+    <title>Radar2Plan · 4D Radar for Ego-Trajectory Planning</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={project.title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(`${asset}qualitative.webp`, canonical).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="radar-page">
+    <a class="skip-link" href="#main">Skip to research content</a>
+    <nav class="floating-nav" aria-label="Project sections">
+      <a class="nav-brand" href="#top">Radar<span>2</span>Plan</a>
+      <div class="nav-sections">
+        <a href="#sensing">Sensing</a>
+        <a href="#adverse">Planning</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#results">Results</a>
+        <a href="#citation">Cite</a>
+      </div>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <div class="masthead">
+          <a href="/" class="back-home"><span aria-hidden="true">↗</span> Ling Yao</a>
+        </div>
+        <h1><span class="wordmark">Radar<span class="wordmark-two">2</span>Plan</span><span class="paper-title">Benchmarking 4D Radar for End-to-End<br class="desktop-break" /> Open-Loop Ego-Trajectory Planning</span></h1>
+        <p class="hero-deck"><strong>The first</strong> benchmark dedicated to evaluating real-world 4D radars for autonomous driving planning.</p>
+        <div class="authors" aria-label="Authors">
+          {project.authors.map(author => (
+            <span>{author.href ? <a href={author.href}>{author.name}</a> : author.name}<sup>{author.affiliations}{author.corresponding && ',*'}</sup></span>
+          ))}
+        </div>
+        <div class="affiliations">
+          {project.affiliations.map((name, index) => <span><sup>{index + 1}</sup>{name}</span>)}
+        </div>
+        <p class="corresponding">* Corresponding author</p>
+        <div class="resource-links" aria-label="Project resources">
+          <a class="pill primary" href={project.paperUrl} target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6" /></svg>Paper <span class="link-detail">PDF</span></a>
+          <a class="pill" href="#overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7z" /></svg>Video</a>
+          {project.arxivUrl && <a class="pill" href={project.arxivUrl} target="_blank" rel="noopener">arXiv <span aria-hidden="true">↗</span></a>}
+          {project.codeUrl && <a class="pill" href={project.codeUrl} target="_blank" rel="noopener">Code <span aria-hidden="true">↗</span></a>}
+          <a class="pill" href="#results"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h17M8 15v-4M13 15V7M18 15v-7" /></svg>Explore results</a>
+        </div>
+        <dl class="scope-strip" aria-label="Benchmark scope">
+          <div><dt>2</dt><dd>Real-world datasets</dd></div>
+          <div><dt>7</dt><dd>Sensor configurations</dd></div>
+          <div><dt>4</dt><dd>Planning architectures</dd></div>
+          <div><dt>12</dt><dd>Condition groups</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <main id="main" data-pagefind-body>
+      <section id="overview" class="overview dark-section opening-overview">
+        <div class="wrap">
+          <div class="video-shell">
+            <video id="overview-video" controls autoplay muted loop playsinline preload="metadata" tabindex="0" aria-label="Radar2Plan research overview" aria-describedby="video-description" poster="/assets/radar2plan/overview-no-cover.jpg">
+              <source src={project.videoUrl} type="video/mp4" />
+              Your browser does not support this video. <a href={project.videoUrl}>Download the overview.</a>
+            </video>
+          </div>
+          <div class="media-caption"><span id="video-description">Radar2Plan · Research overview</span><div class="video-actions"><button type="button" id="video-toggle" hidden>Play video</button><a href={project.videoUrl} download>Download video <span aria-hidden="true">↓</span></a></div></div>
+          <p id="video-error" role="status" hidden></p>
+        </div>
+      </section>
+
+      <section id="sensing" class="overview dark-section">
+        <div class="wrap">
+          <div class="section-heading centered">
+            <p class="eyebrow">The motivation / sensing</p>
+            <h2>When visibility changes, what can radar still see?</h2>
+            <p>Projected 4D radar returns remain reliable or hardly affected under clear, snow, night, and heavy rain conditions.<span class="central-question">Does the sensing robustness of 4D radar benefit downstream&nbsp;planning?</span></p>
+          </div>
+          <DemoGallery id="sensing-demos" title="Sensing conditions" demos={sensing} />
+          <a class="sensing-bridge" href="#question">Robust sensing is the starting point. What about planning? <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section id="question" class="section question-section">
+        <div class="wrap">
+          <div class="question-grid">
+            <div class="section-heading">
+              <p class="eyebrow">The research question</p>
+              <h2>Robust sensing.<br />But robust <em>planning?</em></h2>
+              <p>Existing 4D radar benchmarks focus primarily on perception rather than trajectory planning.</p>
+            </div>
+            <div class="prose question-answer">
+              <p>Despite these advantages, existing 4D radar studies have focused primarily on perception tasks such as object detection, tracking, and occupancy prediction, leaving its value for downstream planning insufficiently evaluated.</p>
+              <p><strong>We therefore present Radar2Plan</strong>, to our knowledge, the first benchmark for open-loop ego-trajectory planning using real-world 4D radar data.</p>
+              <p>Radar2Plan adopts a modular design that separates dataset adaptation, sensor input encoding, planning-specific scene representation, and the planning method through standardized interfaces.</p>
+            </div>
+          </div>
+          <div class="research-questions">
+            <div><span class="small-index">01 / Standalone</span><h3>Can a planner generate competitive ego trajectories using 4D radar as its only environmental sensing modality?</h3></div>
+            <div><span class="small-index">02 / Robustness</span><h3>Under adverse conditions, does radar-based planning achieve lower planning error than camera or LiDAR-based planning?</h3></div>
+            <div><span class="small-index">03 / Complementarity</span><h3>Does adding 4D radar improve planning when combined with camera, LiDAR, or camera-LiDAR sensor inputs?</h3></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="benchmark" class="section benchmark-section">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Benchmark design</p>
+            <h2>A modular benchmark with standardized interfaces.</h2>
+            <p>This design allows individual components to be exchanged independently while maintaining a consistent evaluation protocol across sensor configurations and planning methods.</p>
+          </div>
+          <figure class="wide-figure">
+            <button class="figure-button" type="button" data-zoom={`${asset}architecture.webp`} data-caption="Radar2Plan benchmark architecture · Figure 2" aria-label="Enlarge Radar2Plan architecture figure"><img src={`${asset}architecture.webp`} width="2024" height="672" loading="lazy" alt="Camera, radar and LiDAR pass through dataset adapters, modality encoders, planner-specific scene representations and four planning heads, producing scored six-second trajectories." /><span class="enlarge">View larger <span aria-hidden="true">↗</span></span></button>
+            <figcaption><span class="figure-id">Fig. 2</span> Radar2Plan separates dataset adaptation, modality-specific sensor encoding, planner-specific scene representation, controlled planning baselines, and unified trajectory output and evaluation.</figcaption>
+          </figure>
+          <div class="method-steps">
+            <article><span class="small-index">01 / Unified task</span><h3>Consistent task definitions</h3><p>Radar2Plan converts DSERT-RoLL and MAN TruckScenes into a unified planning benchmark with consistent task definitions, data splits, and evaluation metrics.</p></article>
+            <article><span class="small-index">02 / Controlled comparison</span><h3>Seven sensor configurations</h3><p>Radar2Plan evaluates seven combinations of camera, 4D radar, and LiDAR in four representative planning baselines.</p></article>
+            <article><span class="small-index">03 / Unified evaluation</span><h3>Top-1 ADE at six seconds</h3><p>Top1ADE@6s averages the displacement error of the Top-1 trajectory over all waypoints up to the six-second horizon.</p></article>
+          </div>
+          <details class="protocol-details">
+            <summary>Datasets, splits & experimental controls <span aria-hidden="true">+</span></summary>
+            <div class="protocol-content">
+              <div class="dataset-columns">{datasets.map(dataset => <div><h3>{dataset.name}</h3><p>{dataset.setting}</p><dl><div><dt>Planning samples</dt><dd>{dataset.samples}</dd></div><div><dt>Train / val / test</dt><dd>{dataset.split}</dd></div><div><dt>Conditions</dt><dd>{dataset.conditions}</dd></div></dl></div>)}</div>
+              <p>We train every configuration for 80 epochs using AdamW. We set the learning rate to 10<sup>−4</sup>, the weight decay to 10<sup>−4</sup>, and the batch size to 16. All runs use seed 42 without a learning-rate scheduler.</p>
+              <p>We use <strong>Top1ADE@6s</strong> as the primary evaluation metric. Unless otherwise specified, Top1ADE refers to Top1ADE@6s.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id="radar-only" class="section demo-section">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Perspective 01 / Standalone</p>
+            <h2>Standalone Planning Capability.</h2>
+            <p>Radar-only input achieves the lowest single-modality Top1ADE for every planning baseline on both datasets.</p>
+          </div>
+          <DemoGallery id="standalone-demos" title="Radar-only planning cases" demos={standalone} />
+        </div>
+      </section>
+
+      <section id="adverse" class="section demo-section adverse-section">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Perspective 02 / Adverse conditions</p>
+            <h2>Planning Robustness under Adverse Conditions.</h2>
+            <p>On DSERT-RoLL, radar-only input outperforms camera-only input in 19 of the 20 adverse-weather baseline-condition pairs; adding radar to camera also improves 19 of the 20 pairs.</p>
+          </div>
+          <ConditionResults />
+          <details class="condition-source"><summary>Fig. 4 · Original condition-stratified results <span aria-hidden="true">+</span></summary>
+            <button class="figure-button" type="button" data-zoom="/assets/radar2plan/conditions-figure4.webp" data-caption="Fig. 4 · Condition-stratified six-second Top1ADE" aria-label="Enlarge original condition-stratified results"><img src="/assets/radar2plan/conditions-figure4.webp" width="2032" height="896" loading="lazy" alt="Original Figure 4: condition-specific ADE for all seven sensor configurations, four planners and both datasets." /></button>
+          </details>
+          <h3 class="demo-subheading">Illustrative examples</h3>
+          <DemoGallery id="adverse-demos" title="Planning under adverse conditions" demos={adverse} />
+        </div>
+      </section>
+
+      <section id="qualitative" class="section qualitative-section">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Perspective 03 / Multimodal complementarity</p>
+            <h2>Multi-modal Complementarity.</h2>
+            <p>Sensor-configuration comparisons further demonstrate the complementary value of 4D radar to other modalities, while revealing dependencies on sensor combination and planning architecture.</p>
+          </div>
+          <DemoGallery id="fusion-demos" title="Multimodal planning comparisons" demos={fusion} />
+        </div>
+      </section>
+
+      <section id="results" class="section results-section">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Aggregate Radar Gain</p>
+            <h2>4D Radar as a Planning Modality.</h2>
+            <p>Across the two datasets, radar reduces Top1ADE in 22 of the 24 matched comparisons, corresponding to three base sensor configurations evaluated with four planning baselines on both datasets.</p>
+          </div>
+          <div class="results-explorer" id="results-explorer">
+            <div class="explorer-controls">
+              <div class="segmented" role="group" aria-label="Choose result dataset">
+                {datasets.map((dataset, index) => <button type="button" data-dataset={index} aria-pressed={index === 0}>{dataset.name}</button>)}
+              </div>
+              <label class="planner-select">Planner <select id="planner-select">{planners.map((planner, index) => <option value={index} selected={index === initialPlanner}>{planner}</option>)}</select></label>
+            </div>
+            <div class="chart-heading"><h3 id="chart-title">DSERT-RoLL · Sparse Query</h3><span>Top-1 ADE@6s (m) <b>↓ Lower is better</b></span></div>
+            <div class="bar-chart" role="img" aria-label="Six-second trajectory error for DSERT-RoLL, Sparse Query. Exact values are listed in the complete results tables below.">
+              <div class="chart-axis" aria-hidden="true"><span>0</span><span data-axis-mid>{chartMax / 2}</span><span data-axis-max>{chartMax} m</span></div>
+              {sensors.map((sensor, index) => <div class:list={['chart-row', { 'has-radar': sensor.includes('R'), 'radar-only': sensor === 'R' }]}>
+                <span class="bar-label"><span class="label-full">{sensorNames[index]}</span><abbr class="label-short" title={sensorNames[index]}>{sensor}</abbr></span>
+                <div class="bar-track"><span class="bar-fill" style={`--bar-width: ${initial.values[index][initialPlanner] / chartMax * 100}%`}></span></div>
+                <span class="bar-value">{initial.values[index][initialPlanner].toFixed(2)}</span>
+              </div>)}
+            </div>
+            <div class="chart-legend"><span><i class="legend-radar"></i>With 4D radar</span><span><i class="legend-other"></i>Without 4D radar</span><span>Axis fixed across planners within each dataset.</span></div>
+            <p class="sensor-key">C = camera · R = 4D radar · L = LiDAR</p>
+            <div class="chart-takeaway" aria-live="polite" aria-atomic="true"><span class="small-index">For this configuration</span><p id="chart-insight">Adding radar to camera reduces ADE from <strong>2.95 to 2.38 m</strong>. Adding radar to LiDAR increases it from 2.52 to 3.26 m.</p></div>
+          </div>
+          <details class="results-table-details">
+            <summary>View all 56 results from Table III <span aria-hidden="true">+</span></summary>
+            <div class="table-scroller" tabindex="0" aria-label="Complete results tables, horizontally scrollable">
+              {datasets.map(dataset => <table><caption>{dataset.name} · Top-1 ADE@6s (m), lower is better</caption><thead><tr><th scope="col">Sensor input</th>{planners.map(planner => <th scope="col">{planner}</th>)}</tr></thead><tbody>{sensors.map((sensor, row) => <tr><th scope="row">{sensor}</th>{dataset.values[row].map((value, column) => <td>{value === Math.min(...dataset.values.map(values => values[column])) ? <strong>{value.toFixed(2)}</strong> : value.toFixed(2)}</td>)}</tr>)}</tbody></table>)}
+            </div>
+            <p class="table-note">C = camera, R = 4D radar, L = LiDAR. Bold indicates the best of all seven configurations for each planner. Values are transcribed from the supplied manuscript; differences of rounded table entries may vary by 0.01 m from reported gains.</p>
+          </details>
+          <div class="findings">
+            <article><p class="finding-number">8 / 8</p><h3>Standalone planning capability</h3><p>Radar-only input achieves the lowest single-modality Top1ADE for every planning baseline on both datasets.</p></article>
+            <article><p class="finding-number">22 / 24</p><h3>Multi-modal complementarity</h3><p>Across the two datasets, radar reduces Top1ADE in 22 of the 24 matched comparisons.</p></article>
+            <article><p class="finding-number">19 / 20</p><h3>Adverse conditions</h3><p>On DSERT-RoLL, radar-only input outperforms camera-only input in 19 of the 20 adverse-weather baseline-condition pairs.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="design" class="section design-section">
+        <div class="wrap">
+          <div class="section-heading">
+            <p class="eyebrow">Modular benchmark design</p>
+            <h2>Plug and Play design for future research</h2>
+            <p>The modular design supports additional datasets, sensing modalities, and planners, providing a flexible foundation for future research on radar-based autonomous driving planning.</p>
+          </div>
+          <div class="extension-grid">
+            <article><span class="small-index">01 / Datasets</span><h3>Dataset adaptation</h3><p>DSERT-RoLL<br />MAN TruckScenes</p></article>
+            <article><span class="small-index">02 / Sensing modalities</span><h3>Sensor input encoding</h3><p>Camera · 4D Radar · LiDAR</p><p class="extension-detail">Seven sensor configurations</p></article>
+            <article><span class="small-index">03 / Planning methods</span><h3>Planning-specific scene representation</h3><p>GRU · Sparse Query<br />Vocabulary · Diffusion</p></article>
+          </div>
+          <div class="shared-protocol"><span class="small-index">Standardized interfaces</span><p>This design allows individual components to be exchanged independently while maintaining a consistent evaluation protocol across sensor configurations and planning methods.</p></div>
+        </div>
+      </section>
+
+      <section id="citation" class="section citation-section">
+        <div class="wrap citation-grid">
+          <div class="section-heading"><p class="eyebrow">Resources & citation</p><h2>Build on Radar2Plan.</h2><p>An arXiv identifier and code link will be added when available.</p><a class="text-link" href={project.paperUrl} target="_blank" rel="noopener">Read the manuscript <span aria-hidden="true">↗</span></a><p class="version-note">Current PDF: anonymous submission version.<br />The author list above is confirmed by the authors.</p></div>
+          <div class="citation-box"><div class="citation-toolbar"><span class="eyebrow">BibTeX · manuscript</span><button type="button" id="copy-citation">Copy BibTeX</button></div><pre><code id="bibtex-code">{bibtex}</code></pre><span id="copy-status" role="status" class="sr-only"></span></div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="wrap"><a class="footer-brand" href="#top">Radar<span>2</span>Plan</a><p>A modular benchmark for open-loop ego-trajectory planning using real-world 4D radar data.</p><div><a href="/">Ling Yao’s homepage <span aria-hidden="true">↗</span></a><span class="design-credit">Design inspired by <a href="https://lecar-lab.github.io/FADA-humanoid/" target="_blank" rel="noopener">FADA</a>. Figures and results: Radar2Plan.</span></div></div></footer>
+    <dialog id="figure-dialog" aria-label="Enlarged research figure"><div class="dialog-top"><p id="figure-caption"></p><button type="button" id="close-figure" aria-label="Close enlarged figure">Close <span aria-hidden="true">×</span></button></div><img id="enlarged-figure" alt="" /></dialog>
+    <script>
+      import { datasets, sensors, planners } from './radar2plan-data';
+      const root = document.querySelector('.radar-page');
+      if (root) {
+        const video = document.querySelector<HTMLVideoElement>('#overview-video')!;
+        const videoToggle = document.querySelector<HTMLButtonElement>('#video-toggle')!;
+        videoToggle.hidden = false;
+        const syncVideoButton = () => { videoToggle.textContent = video.paused ? 'Play video' : 'Pause video'; };
+        video.addEventListener('play', syncVideoButton);
+        video.addEventListener('pause', syncVideoButton);
+        video.addEventListener('ended', syncVideoButton);
+        const overviewMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (overviewMotion.matches) { video.autoplay = false; video.pause(); }
+        let overviewPausedByUser = false;
+        new IntersectionObserver(entries => {
+          if (!entries[0].isIntersecting) video.pause();
+          else if (!overviewMotion.matches && !overviewPausedByUser) void video.play().catch(() => {});
+        }, { threshold: 0.2 }).observe(video);
+        videoToggle.addEventListener('click', async () => {
+          if (!video.paused) { overviewPausedByUser = true; video.pause(); return; }
+          overviewPausedByUser = false;
+          try { await video.play(); document.querySelector<HTMLElement>('#video-error')!.hidden = true; }
+          catch { const error = document.querySelector<HTMLElement>('#video-error')!; error.hidden = false; error.textContent = 'Playback could not start. Please try the native player controls or download the video.'; }
+        });
+        const nav = document.querySelector<HTMLElement>('.floating-nav');
+        const updateNav = () => { nav?.classList.toggle('visible', window.scrollY > 320); };
+        updateNav();
+        window.addEventListener('scroll', updateNav, { passive: true });
+        const sections = Array.from(document.querySelectorAll<HTMLElement>('header[id], main section[id]'));
+        const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav-sections a'));
+        const highlight = () => {
+          const current = sections.filter(section => section.getBoundingClientRect().top <= 180).at(-1)?.id;
+          navLinks.forEach(link => { if (link.hash === `#${current}`) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current'); });
+        };
+        window.addEventListener('scroll', highlight, { passive: true });
+        highlight();
+
+        let activeDataset = 0;
+        const plannerSelect = document.querySelector<HTMLSelectElement>('#planner-select')!;
+        const datasetButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-dataset]'));
+        const updateChart = () => {
+          const planner = Number(plannerSelect.value);
+          const dataset = datasets[activeDataset];
+          const maximum = Math.ceil(Math.max(...dataset.values.flat()));
+          const values = dataset.values.map(row => row[planner]);
+          document.querySelector('#chart-title')!.textContent = `${dataset.name} · ${planners[planner]}`;
+          document.querySelector('[data-axis-mid]')!.textContent = String(maximum / 2);
+          document.querySelector('[data-axis-max]')!.textContent = `${maximum} m`;
+          document.querySelectorAll<HTMLElement>('.chart-row').forEach((row, index) => {
+            row.querySelector<HTMLElement>('.bar-fill')!.style.setProperty('--bar-width', `${values[index] / maximum * 100}%`);
+            row.querySelector('.bar-value')!.textContent = values[index].toFixed(2);
+          });
+          document.querySelector('.bar-chart')!.setAttribute('aria-label', `${dataset.name}, ${planners[planner]}, Top-1 ADE at six seconds in metres: ${sensors.map((sensor,index) => `${sensor} ${values[index].toFixed(2)}`).join('; ')}. Lower is better.`);
+          const regressions = [[2,5,'LiDAR'],[4,6,'camera + LiDAR']].filter(([a,b])=>values[Number(b)] > values[Number(a)]);
+          let insight = `Adding radar to camera reduces ADE from ${values[0].toFixed(2)} to ${values[3].toFixed(2)} m.`;
+          if (regressions.length) for (const [a,b,name] of regressions) insight += ` Adding radar to ${name} increases it from ${values[Number(a)].toFixed(2)} to ${values[Number(b)].toFixed(2)} m.`;
+          else insight += ' All three matched additions of radar reduce error for this planner.';
+          document.querySelector('#chart-insight')!.textContent = insight;
+          datasetButtons.forEach((button,index)=>button.setAttribute('aria-pressed',String(index===activeDataset)));
+        };
+        datasetButtons.forEach(button => button.addEventListener('click',()=>{ activeDataset=Number(button.dataset.dataset); updateChart(); }));
+        plannerSelect.addEventListener('change',updateChart);
+        updateChart();
+
+        const dialog = document.querySelector<HTMLDialogElement>('#figure-dialog')!;
+        document.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach(button=>button.addEventListener('click',()=>{
+          const img=document.querySelector<HTMLImageElement>('#enlarged-figure')!;
+          img.src=button.dataset.zoom!;
+          img.alt=button.querySelector('img')?.alt ?? '';
+          document.querySelector('#figure-caption')!.textContent=button.dataset.caption ?? '';
+          dialog.showModal();
+        }));
+        document.querySelector('#close-figure')?.addEventListener('click',()=>dialog.close());
+        dialog.addEventListener('click',event=>{ if (event.target!==dialog) return; const r=dialog.getBoundingClientRect(); if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom) dialog.close(); });
+
+        document.querySelector('#copy-citation')?.addEventListener('click',async()=>{
+          const button=document.querySelector<HTMLButtonElement>('#copy-citation')!;
+          const status=document.querySelector('#copy-status')!;
+          try { await navigator.clipboard.writeText(document.querySelector('#bibtex-code')!.textContent ?? ''); button.textContent='Copied!'; status.textContent='BibTeX copied to clipboard.'; window.setTimeout(()=>{button.textContent='Copy BibTeX';},2400); }
+          catch { const selection=window.getSelection(); const range=document.createRange(); range.selectNodeContents(document.querySelector('#bibtex-code')!); selection?.removeAllRanges(); selection?.addRange(range); button.textContent='Text selected'; status.textContent='Copy was unavailable. Citation selected; press Control+C or Command+C.'; }
+        });
+      }
+    </script>
+  </body>
+</html>

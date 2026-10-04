@@ -1,0 +1,38 @@
+---
+import conditions from './radar2plan-conditions.json';
+import { planners, sensors } from './radar2plan-data';
+---
+<div class="condition-results" data-condition-results>
+  <div class="explorer-controls">
+    <div class="segmented" role="group" aria-label="Weather result dataset">
+      {conditions.map((dataset, index) => <button type="button" data-condition-dataset={index} aria-pressed={index === 0}>{dataset.name}</button>)}
+    </div>
+    <label class="planner-select">Planner <select data-condition-planner aria-label="Weather result planner">{planners.map((planner, index) => <option value={index} selected={index === 1}>{planner}</option>)}</select></label>
+  </div>
+  <div class="table-scroller" tabindex="0" aria-label="Condition-specific results; scroll horizontally on small screens">
+    {conditions.map((dataset, d) => dataset.values.map((rows, p) => <table class="condition-table" data-condition-table={`${d}-${p}`} hidden={!(d === 0 && p === 1)}>
+      <caption>{dataset.name} · {planners[p]} <span>Top-1 ADE@6s (m) · Lower is better</span></caption>
+      <thead><tr><th scope="col">Sensor input</th>{dataset.conditions.map(condition => <th scope="col">{condition}</th>)}</tr></thead>
+      <tbody>{rows.map((row, s) => <tr class:list={{ 'condition-radar-row': sensors[s] === 'R' }}>
+        <th scope="row">{sensors[s]}</th>
+        {row.map((value, c) => <td>{value === Math.min(...rows.map(r => r[c])) ? <strong>{value.toFixed(2)}</strong> : value.toFixed(2)}</td>)}
+      </tr>)}</tbody>
+    </table>))}
+  </div>
+  <p class="table-note">C = camera · R = 4D radar · L = LiDAR. Bold: lowest error in each condition. Aggregate results from Fig. 4.</p>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-condition-results]').forEach(root => {
+    const selector = root.querySelector<HTMLSelectElement>('[data-condition-planner]')!;
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-condition-dataset]'));
+    let dataset = 0;
+    const update = () => {
+      root.querySelectorAll<HTMLTableElement>('[data-condition-table]').forEach(table => {
+        table.hidden = table.dataset.conditionTable !== `${dataset}-${selector.value}`;
+      });
+      buttons.forEach((button, index) => button.setAttribute('aria-pressed', String(index === dataset)));
+    };
+    buttons.forEach((button, index) => button.addEventListener('click', () => { dataset = index; update(); }));
+    selector.addEventListener('change', update);
+  });
+</script>

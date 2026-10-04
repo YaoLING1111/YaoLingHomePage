@@ -1,0 +1,117 @@
+---
+import { type Demo, demoBase } from './radar2plan-demos';
+
+interface Props {
+  id: string;
+  title: string;
+  demos: Demo[];
+}
+const { id, title, demos } = Astro.props;
+const first = demos[0];
+---
+<div class="demo-gallery" data-demo-gallery={id}>
+  {demos.length > 1 && <div class="demo-tabs" role="group" aria-label={title}>
+    {demos.map((demo, index) => <button type="button" data-demo-index={index} aria-pressed={index === 0} aria-controls={`${id}-figure`}>{demo.label}</button>)}
+  </div>}
+  <figure id={`${id}-figure`}>
+    <div class="demo-caption-head" aria-live="polite" aria-atomic="true">
+      <span class="demo-evidence">{first.evidence}</span>
+      <span class="demo-identity">{first.dataset} · {first.condition}</span>
+    </div>
+    <div class="demo-video-shell">
+      <video class="demo-video" width="1920" height="1080" autoplay muted loop playsinline preload="none" poster={`${demoBase}${first.file}.jpg`} data-src={`${demoBase}${first.file}.mp4`} aria-label={`${title}: ${first.dataset}, ${first.condition}`} aria-describedby={`${id}-caption`}>
+        Your browser does not support inline video. Use the MP4 link below.
+      </video>
+    </div>
+    <div class="demo-toolbar">
+      <p class="demo-planner">{first.planner}</p>
+      <div class="demo-actions">
+        <button type="button" data-demo-toggle aria-label={`Play or pause ${title}`}>Play</button>
+        <button type="button" data-demo-fullscreen aria-label={`Expand ${title}`}>Expand ↗</button>
+        <a class="demo-download" href={`${demoBase}${first.file}.mp4`} target="_blank" rel="noopener">MP4 ↗</a>
+      </div>
+    </div>
+    <figcaption id={`${id}-caption`}>
+      <span class="demo-sensors">{first.sensors}</span>
+      <span class="demo-note">{first.note}</span>
+      <span class="demo-error" role="status" hidden>Playback is unavailable. The still frame is shown; use the MP4 link to open the clip.</span>
+    </figcaption>
+    <noscript><p class="demo-noscript">JavaScript is off. View the clips directly: {demos.map(demo => <a href={`${demoBase}${demo.file}.mp4`}>{demo.label} ↗ </a>)}</p></noscript>
+  </figure>
+  <script is:inline type="application/json" data-demo-config set:html={JSON.stringify(demos).replace(/</g, '\\u003c')} />
+</div>
+
+<script>
+  import { demoBase, type Demo } from './radar2plan-demos';
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-demo-gallery]').forEach(gallery => {
+    const demos: Demo[] = JSON.parse(gallery.querySelector('[data-demo-config]')!.textContent!);
+    const video = gallery.querySelector<HTMLVideoElement>('video')!;
+    const toggle = gallery.querySelector<HTMLButtonElement>('[data-demo-toggle]')!;
+    const error = gallery.querySelector<HTMLElement>('.demo-error')!;
+    const buttons = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-demo-index]'));
+    let inView = false;
+    let userPaused = false;
+    let manuallyStarted = false;
+    // No source is attached until this gallery is near the viewport. Hidden
+    // cases never download. Reduced-motion visitors see a static poster first.
+    video.autoplay = false;
+    video.muted = true;
+    const load = () => {
+      const src = video.dataset.src!;
+      if (video.getAttribute('src') !== src) { video.src = src; video.load(); }
+    };
+    const sync = () => { toggle.textContent = video.paused ? 'Play' : 'Pause'; };
+    const play = async () => {
+      load();
+      try { await video.play(); error.hidden = true; }
+      catch { sync(); }
+    };
+    const updatePlayback = () => {
+      if (inView && !document.hidden && !userPaused && (!motion.matches || manuallyStarted)) void play();
+      else video.pause();
+    };
+    const observer = new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+      updatePlayback();
+    }, { threshold: 0.15 });
+    observer.observe(video);
+    video.addEventListener('play', sync);
+    video.addEventListener('pause', sync);
+    video.addEventListener('error', () => { error.hidden = false; sync(); });
+    toggle.addEventListener('click', () => {
+      if (!video.paused) { userPaused = true; video.pause(); }
+      else { userPaused = false; manuallyStarted = true; void play(); }
+    });
+    buttons.forEach((button, index) => button.addEventListener('click', () => {
+      const demo = demos[index];
+      video.pause();
+      // Removing the old source clears the previous case's frame while the
+      // newly selected case loads, so labels never describe the wrong scene.
+      video.removeAttribute('src'); video.load();
+      video.poster = `${demoBase}${demo.file}.jpg`;
+      video.dataset.src = `${demoBase}${demo.file}.mp4`;
+      video.setAttribute('aria-label', `${demo.dataset}, ${demo.condition}, ${demo.planner}`);
+      gallery.querySelector('.demo-evidence')!.textContent = demo.evidence;
+      gallery.querySelector('.demo-identity')!.textContent = `${demo.dataset} · ${demo.condition}`;
+      gallery.querySelector('.demo-planner')!.textContent = demo.planner;
+      gallery.querySelector('.demo-sensors')!.textContent = demo.sensors;
+      gallery.querySelector('.demo-note')!.textContent = demo.note;
+      gallery.querySelector<HTMLAnchorElement>('.demo-download')!.href = `${demoBase}${demo.file}.mp4`;
+      buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      error.hidden = true;
+      updatePlayback();
+    }));
+    gallery.querySelector('[data-demo-fullscreen]')!.addEventListener('click', async () => {
+      const nativeVideo = video as HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+      try {
+        if (video.requestFullscreen) await video.requestFullscreen();
+        else if (nativeVideo.webkitEnterFullscreen) nativeVideo.webkitEnterFullscreen();
+        else window.open(video.dataset.src, '_blank', 'noopener');
+      } catch { window.open(video.dataset.src, '_blank', 'noopener'); }
+    });
+    document.addEventListener('fullscreenchange', () => { video.controls = document.fullscreenElement === video; });
+    document.addEventListener('visibilitychange', updatePlayback);
+    motion.addEventListener('change', () => { manuallyStarted = false; updatePlayback(); });
+  });
+</script>
