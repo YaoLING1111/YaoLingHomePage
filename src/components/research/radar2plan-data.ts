@@ -12,15 +12,14 @@ export const project = {
   codeUrl: '',
   authors: [
     { name: 'Ling Yao', affiliations: '1,2', href: '/', corresponding: false },
-    { name: 'Yichun Xiao', affiliations: '2,3', href: '', corresponding: false },
-    { name: 'Jin Jin', affiliations: '4', href: '', corresponding: false },
-    { name: 'Yihan Zhang', affiliations: '1', href: '', corresponding: false },
-    { name: 'Fangqiang Ding', affiliations: '2', href: '', corresponding: true },
+    { name: 'Yichun Xiao', affiliations: '1', href: '', corresponding: false },
+    { name: 'Jin Jin', affiliations: '3', href: '', corresponding: false },
+    { name: 'Yihan Zhang', affiliations: '2', href: '', corresponding: false },
+    { name: 'Fangqiang Ding', affiliations: '1', href: '', corresponding: true },
   ],
   affiliations: [
-    'Shanghai Jiao Tong University',
     'The Hong Kong University of Science and Technology (Guangzhou)',
-    'University of Edinburgh',
+    'Shanghai Jiao Tong University',
     'University of Oxford',
   ],
 };
